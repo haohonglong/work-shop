@@ -51,16 +51,14 @@ class PersonCardForm extends Model
 
     public function edit()
     {
-        if($this->validate()){
-            $model = PersonCard::getById($this->id);
-            if($model){
-                $model->title = $this->title;
-                $model->tip = $this->tip;
-                if($model->save()){
-                    return true;
-                }
-                $this->addError($model->getErrors());
+        $model = PersonCard::getById($this->id);
+        if($model){
+            $model->title = $this->title;
+            $model->tip = $this->tip;
+            if($model->save()){
+                return true;
             }
+            $this->addError($model->getErrors());
         }
         return false;
     }

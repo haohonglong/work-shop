@@ -41,7 +41,7 @@ class PersonCardController extends BaseController
         $model->title = $request->post('title');
         $model->tip = $request->post('tip');
         if ($model->edit()) {
-	        return Response::json(1,'成功');
+            return Response::json(1,'成功');
         }
 	    return Response::json(0,'失败');
     }
