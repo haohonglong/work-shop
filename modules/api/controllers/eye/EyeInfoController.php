@@ -110,7 +110,7 @@ class EyeInfoController extends BaseController
     }
 
     /**
-     * 统计眼睛数据
+     * 统计眼睛数据 GET
      * @return object
      */
     public function actionCount()
@@ -134,7 +134,7 @@ class EyeInfoController extends BaseController
     }
 
     /**
-     * 获取世界卫生组织全部数据
+     * 获取世界卫生组织全部数据 GET
      * @return object
      */
     public function actionWorldCount()
