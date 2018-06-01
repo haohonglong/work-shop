@@ -31,7 +31,7 @@ $this->title = '眼睛信息图表';
 <script src="/statics/echarts/echarts-all.js"></script>
 
 <script type="text/javascript">
-    // 基于准备好的dom，初始化echarts图表
+
     var myChart;
     jQuery(function($){
 
@@ -61,7 +61,7 @@ $this->title = '眼睛信息图表';
             yAxis : [
                 {
                     type : 'value',
-                    data:[333,42342,341341]
+                    data:[]
                 }
             ],
             series : [
@@ -82,12 +82,12 @@ $this->title = '眼睛信息图表';
         function getData(obj){
             myChart = echarts.init(document.getElementById('main'));
             obj = obj || {};
-            console.log(obj);
             $.getJSON("<?=Url::to(['/api/eye/eye-info/count']);?>",obj,function(D){
                 if(1 == D.code){
                     option.series[0].data = D['data']['degrees']['num_L'];
                     option.series[1].data = D['data']['degrees']['num_R'];
                     option.xAxis[0].data = option.series[0].data;
+                    option.yAxis[0].data = option.series[1].data;
                     myChart.setOption(option);
                 }
             });
@@ -115,11 +115,7 @@ $this->title = '眼睛信息图表';
         $('#date').datetimepicker({
             datepicker: true,
             timepicker: false,
-            format: 'Y-m-d',
-            dayOfWeekStart: 1,
-            scrollMonth: false,
-            scrollTime: false,
-            scrollInput: false
+            format: 'Y-m-d'
         });
 
     })(jQuery);

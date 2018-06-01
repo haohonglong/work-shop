@@ -9,6 +9,7 @@
 namespace app\modules\api\controllers\eye;
 
 use app\models\User;
+use app\models\WorldPerson;
 use yii;
 use yii\db\Query;
 use app\models\EyeInfo;
@@ -130,5 +131,24 @@ class EyeInfoController extends BaseController
         }
         return Response::json(0,'数据获取失败');
 
+    }
+
+    /**
+     * 获取世界卫生组织全部数据
+     * @return object
+     */
+    public function actionWorldCount()
+    {
+        $query = (new Query())->from(WorldPerson::tableName());
+        $data = $query->all();
+        if($data){
+            $arr = [];
+            foreach ($data as $k => $item){
+                $arr['degrees'][]=$item['degrees'];
+                $arr['population'][]=$item['population'];
+            }
+            return Response::json(1,'',$arr);
+        }
+        return Response::json(0,'数据获取失败');
     }
 }

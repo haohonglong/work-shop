@@ -467,6 +467,13 @@ class MchMenu
 				        'route' => 'mch/eye/eye-info/count',
 				        'list' => [
 				            [
+                                'name' => '世界数据',
+                                'route' => 'mch/eye/eye-info/world-count',
+                                'sub' => [
+                                    'mch/eye/eye-info/world-count',
+                                ],
+                            ],
+                            [
                                 'name' => '眼睛数据图表',
                                 'route' => 'mch/eye/eye-info/count',
                                 'sub' => [

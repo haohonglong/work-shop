@@ -7,8 +7,8 @@ use Yii;
 /**
  * This is the model class for table "ushop_world_person".
  *
- * @property string $degrees 眼睛度数
- * @property string $population 人口数量
+ * @property string $degrees 鐪肩潧搴︽暟
+ * @property string $population 浜哄彛鏁伴噺
  */
 class WorldPerson extends \yii\db\ActiveRecord
 {
@@ -17,7 +17,7 @@ class WorldPerson extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'ushop_world_person';
+        return '{{%world_person}}';
     }
 
     /**
@@ -38,8 +38,8 @@ class WorldPerson extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'degrees' => '眼睛度数',
-            'population' => '人口数量',
+            'degrees' => 'Degrees',
+            'population' => 'Population',
         ];
     }
 }

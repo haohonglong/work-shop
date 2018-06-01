@@ -94,10 +94,19 @@ class EyeInfoController extends Controller
 
     /**
      * 显示图表
-     * @return object
+     * @return string
      */
     public function actionCount()
     {
         return $this->render('chart');
+    }
+
+    /**
+     * 显示世界卫生组织眼镜度数及人口的数据
+     * @return string
+     */
+    public function actionWorldCount()
+    {
+        return $this->render('worldChart');
     }
 }
