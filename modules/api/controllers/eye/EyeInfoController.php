@@ -56,6 +56,24 @@ class EyeInfoController extends BaseController
 	    return Response::json(0,'失败');
     }
 
+    public function actionTest()
+    {
+
+        $data = (new Query())->from(EyeInfo::tableName())->one();
+        $advice = $data['advice'];
+        for($i=0;$i<500;$i++){
+            $model = new EyeInfo();
+            $model->advice = $advice;
+            $model->user_id = 1;
+            $model->num_R = (string)(rand(1,30)/10);
+            $model->num_L = (string)(rand(1,30)/10);
+            $model->num_RS = (string)(rand(1,-30)/10);
+            $model->num_LS = (string)(rand(1,-30)/10);
+            $model->save();
+
+        }
+    }
+
     public function actionEdit()
     {
         $request = yii::$app->request;
@@ -88,5 +106,29 @@ class EyeInfoController extends BaseController
 	        return Response::json(1,'成功');
         }
 	    return Response::json(0,'失败');
+    }
+
+    /**
+     * 统计眼睛数据
+     * @return object
+     */
+    public function actionCount()
+    {
+        $date = yii::$app->request->get('date');
+        $query = (new Query())->from(EyeInfo::tableName());
+        if($date){
+            $query->where(['date'=>$date]);
+        }
+        $data = $query->all();
+        if($data){
+            $arr = [];
+            foreach ($data as $k => $item){
+                $arr['degrees']['num_R'][]=$item['num_R'];
+                $arr['degrees']['num_L'][]=$item['num_L'];
+            }
+            return Response::json(1,'',$arr);
+        }
+        return Response::json(0,'数据获取失败');
+
     }
 }

@@ -462,6 +462,14 @@ class MchMenu
 					        'mch/eye/person-card/index',
 				        ],
 			        ],
+                    [
+				        'name' => '眼睛信息图表',
+				        'route' => 'mch/eye/eye-info/count',
+				        'sub' => [
+					        'mch/eye/eye-info/count',
+				        ],
+			        ],
+
 		        ],
 	        ],
 

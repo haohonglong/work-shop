@@ -8,6 +8,7 @@
 
 namespace app\modules\mch\controllers\eye;
 
+use app\helper\Response;
 use app\modules\mch\controllers\Controller;
 
 use app\models\User;
@@ -54,18 +55,21 @@ class EyeInfoController extends Controller
     {
         $request = yii::$app->request;
         $model = new EyeInfo();
-        $model->advice = $request->post('advice');
-        $model->user_id = $request->post('user_id');
-        $model->num_R = $request->post('num_R');
-        $model->num_L = $request->post('num_L');
-        $model->num_RS = $request->post('num_RS');
-        $model->num_LS = $request->post('num_LS');
-        $date = $request->post('date');
-        if($date){$model->date = $date;}
-        if ($model->validate() && $model->save()) {
-            return Response::json(1,'成功');
+//        $model->advice = $request->post('advice');
+//        $model->user_id = $request->post('user_id');
+//        $model->num_R = $request->post('num_R');
+//        $model->num_L = $request->post('num_L');
+//        $model->num_RS = $request->post('num_RS');
+//        $model->num_LS = $request->post('num_LS');
+//        $date = $request->post('date');
+//        if($date){$model->date = $date;}
+        if ($model->load($request->post()) && $model->save()) {
+            return $this->redirect(['eye/eye-info/count']);
         }
-	    return Response::json(0,'失败');
+        $var =[
+            'model'=>$model
+        ];
+        return $this->render('add',$var);
     }
 
     public function actionEdit()
@@ -100,5 +104,14 @@ class EyeInfoController extends Controller
 	        return Response::json(1,'成功');
         }
 	    return Response::json(0,'失败');
+    }
+
+    /**
+     * 显示图表
+     * @return object
+     */
+    public function actionCount()
+    {
+        return $this->render('chart');
     }
 }

@@ -65,13 +65,13 @@ class EyeInfo extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'num_R' => 'Num  R',
-            'num_L' => 'Num  L',
-            'num_RS' => 'Num  Rs',
-            'num_LS' => 'Num  Ls',
+            'num_R' => '右眼度数',
+            'num_L' => '左眼度数',
+            'num_RS' => '右眼散光度数',
+            'num_LS' => '左眼散光度数',
             'date' => 'Date',
-            'advice' => 'Advice',
-            'user_id' => 'User ID',
+            'advice' => '医生建议',
+            'user_id' => '用户ID',
             'is_del' => 'Is Del',
         ];
     }
