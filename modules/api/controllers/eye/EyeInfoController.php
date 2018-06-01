@@ -117,7 +117,7 @@ class EyeInfoController extends BaseController
         $date = yii::$app->request->get('date');
         $query = (new Query())->from(EyeInfo::tableName());
         if($date){
-            $query->where(['date'=>$date]);
+            $query->where('year(date) = :date',[':date'=>$date]);
         }
         $data = $query->all();
         if($data){

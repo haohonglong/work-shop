@@ -32,7 +32,10 @@ class EyeInfoController extends Controller
 		    ->addSelect('e.*')
 		    ->from(User::tableName().' as u')
 		    ->innerJoin(EyeInfo::tableName().' as e','e.user_id = u.id')
-		    ->where(['e.is_del'=>0,'u.family_type'=>$type]);
+		    ->where(['e.is_del'=>0]);
+	    if($type){
+	        $query->andWhere(['u.family_type'=>$type]);
+        }
 		if($query){
 			$count = $query->count();
 			$pagination = new Pagination(['totalCount' => $count]);
@@ -55,14 +58,6 @@ class EyeInfoController extends Controller
     {
         $request = yii::$app->request;
         $model = new EyeInfo();
-//        $model->advice = $request->post('advice');
-//        $model->user_id = $request->post('user_id');
-//        $model->num_R = $request->post('num_R');
-//        $model->num_L = $request->post('num_L');
-//        $model->num_RS = $request->post('num_RS');
-//        $model->num_LS = $request->post('num_LS');
-//        $date = $request->post('date');
-//        if($date){$model->date = $date;}
         if ($model->load($request->post()) && $model->save()) {
             return $this->redirect(['eye/eye-info/count']);
         }
@@ -72,28 +67,19 @@ class EyeInfoController extends Controller
         return $this->render('add',$var);
     }
 
-    public function actionEdit()
+    public function actionEdit($id)
     {
         $request = yii::$app->request;
-        $model = EyeInfo::getById($request->post('id'));
+        $model = EyeInfo::getById($id);
         if($model){
-            $model->num_R = $request->post('num_R');
-            $model->num_L = $request->post('num_L');
-            $model->num_RS = $request->post('num_RS');
-            $model->num_LS = $request->post('num_LS');
-            $date = $request->post('date');
-            if($date){
-                $model->date = $date;
+            if ($model->load($request->post()) && $model->save()) {
+                return $this->redirect(['eye/eye-info/count']);
             }
-            $model->advice = $request->post('advice');
-            $model->user_id = $request->post('user_id');
-            if ($model->validate() && $model->save()) {
-	            return Response::json(1,'成功');
-            }
-	        return Response::json(0,'失败');
+            $var =[
+                'model'=>$model
+            ];
+            return $this->render('edit',$var);
         }
-        return Response::json('0','没有对应id 信息');
-
     }
 
     public function actionDel()

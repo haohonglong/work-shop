@@ -463,12 +463,27 @@ class MchMenu
 				        ],
 			        ],
                     [
-				        'name' => '眼睛信息图表',
+				        'name' => '眼睛信息',
 				        'route' => 'mch/eye/eye-info/count',
-				        'sub' => [
-					        'mch/eye/eye-info/count',
+				        'list' => [
+				            [
+                                'name' => '眼睛数据图表',
+                                'route' => 'mch/eye/eye-info/count',
+                                'sub' => [
+                                    'mch/eye/eye-info/count',
+                                ],
+                            ],
+                            [
+                                'name' => '眼睛数据列表',
+                                'route' => 'mch/eye/eye-info/index',
+                                'sub' => [
+                                    'mch/eye/eye-info/index',
+                                ],
+                            ]
+
 				        ],
 			        ],
+
 
 		        ],
 	        ],
