@@ -85,8 +85,11 @@ class EyeInfoController extends Controller
         $request = yii::$app->request;
         $model = EyeInfo::getById($id);
         if($model){
-            if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['count']);
+            if ($model->load($request->post())) {
+                $model->m_date = date('Y-m-d H:i:s');
+                if($model->save()){
+                    return $this->redirect(['count']);
+                }
             }
             $var =[
                 'model'=>$model,

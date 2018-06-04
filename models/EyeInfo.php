@@ -14,6 +14,7 @@ use Yii;
  * @property string $num_LS 左眼散光
  * @property int $degrees 眼睛的度数
  * @property string $date
+ * @property string $m_date 修改日期
  * @property string $advice 医生建议
  * @property int $user_id
  * @property int $is_del 1:删除
@@ -35,7 +36,7 @@ class EyeInfo extends \yii\db\ActiveRecord
     {
         return [
             [['degrees', 'user_id', 'is_del'], 'integer'],
-            [['date'], 'safe'],
+            [['date','m_date'], 'safe'],
             [['advice'], 'string'],
             [['user_id','num_R', 'num_L', 'num_RS', 'num_LS','degrees'], 'required'],
             [['num_R', 'num_L', 'num_RS', 'num_LS'], 'string', 'max' => 6],
@@ -72,6 +73,7 @@ class EyeInfo extends \yii\db\ActiveRecord
             'num_LS' => '左眼散光度数',
             'degrees' => '眼镜度数',
             'date' => 'Date',
+            'm_date' => '修改日期',
             'advice' => '医生建议',
             'user_id' => '用户',
             'is_del' => 'Is Del',

@@ -16,6 +16,7 @@ class EyeInfoForm extends Model
     public $degrees;
     public $advice;
     public $date;
+    public $m_date;
     /**
      * {@inheritdoc}
      */
@@ -23,7 +24,7 @@ class EyeInfoForm extends Model
     {
         return [
             [['degrees', 'user_id'], 'integer'],
-            [['date'], 'safe'],
+            [['date','m_date'], 'safe'],
             [['advice'], 'string'],
             [['user_id','num_R', 'num_L', 'num_RS', 'num_LS','degrees'], 'required'],
             [['num_R', 'num_L', 'num_RS', 'num_LS'], 'string', 'max' => 6],
@@ -42,6 +43,7 @@ class EyeInfoForm extends Model
             $model->degrees = $this->degrees;
             $model->advice = $this->advice;
             $model->date = date('Y-m-d H:i:s');
+            $model->m_date = $model->date;
             if($model->save()){
                 return true;
             }
@@ -64,7 +66,7 @@ class EyeInfoForm extends Model
             $model->num_LS = $this->num_LS;
             $model->degrees = $this->degrees;
             $model->advice = $this->advice;
-            $model->date = date('Y-m-d H:i:s');
+            $model->m_date = date('Y-m-d H:i:s');
             if($model->save()){
                 return true;
             }
@@ -89,6 +91,7 @@ class EyeInfoForm extends Model
             'num_LS' => '左眼散光度数',
             'degrees' => '眼镜度数',
             'date' => 'Date',
+            'm_date' => '修改日期',
             'advice' => '医生建议',
             'user_id' => '用户',
             'is_del' => 'Is Del',
