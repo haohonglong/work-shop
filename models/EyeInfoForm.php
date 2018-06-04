@@ -90,7 +90,7 @@ class EyeInfoForm extends Model
             'degrees' => '眼镜度数',
             'date' => 'Date',
             'advice' => '医生建议',
-            'user_id' => '用户ID',
+            'user_id' => '用户',
             'is_del' => 'Is Del',
         ];
     }

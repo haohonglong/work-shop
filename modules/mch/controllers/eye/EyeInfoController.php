@@ -55,6 +55,16 @@ class EyeInfoController extends Controller
 		}
     }
 
+    /**
+     * @return array
+     */
+    private function getUsers()
+    {
+        $data = (new Query())->select('id,nickname')->from(User::tableName())->all();
+        $data = yii\helpers\ArrayHelper::map($data, 'id', 'nickname');
+        return $data;
+    }
+
     public function actionAdd()
     {
         $request = yii::$app->request;
@@ -62,8 +72,10 @@ class EyeInfoController extends Controller
         if ($model->load($request->post()) && $model->save()) {
             return $this->redirect(['count']);
         }
+
         $var =[
-            'model'=>$model
+            'model'=>$model,
+            'user_list'=>$this->getUsers(),
         ];
         return $this->render('add',$var);
     }
@@ -77,7 +89,8 @@ class EyeInfoController extends Controller
                 return $this->redirect(['count']);
             }
             $var =[
-                'model'=>$model
+                'model'=>$model,
+                'user_list'=>$this->getUsers(),
             ];
             return $this->render('edit',$var);
         }

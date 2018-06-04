@@ -452,14 +452,18 @@ class MchMenu
 				        'name' => '眼睛卡',
 				        'route' => 'mch/eye/eye-card/index',
 				        'sub' => [
-					        'route' => 'mch/eye/eye-card/index',
+					        'mch/eye/eye-card/index',
+					        'mch/eye/eye-card/add',
+					        'mch/eye/eye-card/edit',
 				        ],
 			        ],
                     [
 				        'name' => '家庭',
 				        'route' => 'mch/eye/family/index',
 				        'sub' => [
-                            'route' => 'mch/eye/family/index',
+                            'mch/eye/family/index',
+                            'mch/eye/family/add',
+                            'mch/eye/family/edit',
 				        ],
 			        ],
 
@@ -468,6 +472,8 @@ class MchMenu
 				        'route' => 'mch/eye/person-card/index',
 				        'sub' => [
 					        'mch/eye/person-card/index',
+					        'mch/eye/person-card/add',
+					        'mch/eye/person-card/edit',
 				        ],
 			        ],
                     [
@@ -486,6 +492,7 @@ class MchMenu
                                 'route' => 'mch/eye/eye-info/count',
                                 'sub' => [
                                     'mch/eye/eye-info/count',
+                                    'mch/eye/eye-info/add',
                                 ],
                             ],
                             [
@@ -493,6 +500,7 @@ class MchMenu
                                 'route' => 'mch/eye/eye-info/index',
                                 'sub' => [
                                     'mch/eye/eye-info/index',
+                                    'mch/eye/eye-info/edit',
                                 ],
                             ]
 

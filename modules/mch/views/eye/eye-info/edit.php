@@ -11,7 +11,7 @@ $this->title = '添加眼睛信息';
         'id' => 'login-form',
         'options' => ['class' => 'form-horizontal'],
         ]) ?>
-        <?= $form->field($model, 'user_id') ?>
+        <?= $form->field($model, 'user_id')->dropdownList($user_list,['prompt'=>'请选择用户']) ?>
         <?= $form->field($model, 'num_R') ?>
         <?= $form->field($model, 'num_L') ?>
         <?= $form->field($model, 'num_RS') ?>
