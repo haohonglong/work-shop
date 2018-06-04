@@ -1,7 +1,7 @@
 <?php
 
 // 只显示致命错误（生产模式下使用）
-error_reporting(E_ERROR);
+//error_reporting(E_ERROR);
 
 ini_set('display_errors',1);     
 ini_set('display_startup_errors',1);

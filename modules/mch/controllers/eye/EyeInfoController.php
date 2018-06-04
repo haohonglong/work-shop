@@ -9,6 +9,7 @@
 namespace app\modules\mch\controllers\eye;
 
 use app\helper\Response;
+use app\models\EyeInfoForm;
 use app\modules\mch\controllers\Controller;
 
 use app\models\User;
@@ -28,7 +29,7 @@ class EyeInfoController extends Controller
 	    $request = yii::$app->request;
 	    $type = $request->get('type');
 	    $query = User::find()
-		    ->select('u.id as user_id,u.sex,u.username,u.age,u.avatar_url,u.family_type')
+		    ->select('u.id as user_id,u.sex,u.username,u.age,u.avatar_url,u.family_type,e.degrees')
 		    ->addSelect('e.*')
 		    ->from(User::tableName().' as u')
 		    ->innerJoin(EyeInfo::tableName().' as e','e.user_id = u.id')
@@ -57,9 +58,9 @@ class EyeInfoController extends Controller
     public function actionAdd()
     {
         $request = yii::$app->request;
-        $model = new EyeInfo();
+        $model = new EyeInfoForm();
         if ($model->load($request->post()) && $model->save()) {
-            return $this->redirect(['eye/eye-info/count']);
+            return $this->redirect(['count']);
         }
         $var =[
             'model'=>$model
@@ -73,7 +74,7 @@ class EyeInfoController extends Controller
         $model = EyeInfo::getById($id);
         if($model){
             if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['eye/eye-info/count']);
+                return $this->redirect(['count']);
             }
             $var =[
                 'model'=>$model

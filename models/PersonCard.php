@@ -60,10 +60,10 @@ class PersonCard extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'tip' => 'Tip',
-            'f_id' => 'F ID',
-            'type' => 'Type',
+            'title' => '名称',
+            'tip' => '小提示',
+            'f_id' => '家庭',
+            'type' => '卡的类型',
             'is_del' => 'Is Del',
         ];
     }

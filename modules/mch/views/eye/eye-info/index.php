@@ -15,6 +15,7 @@ $this->title = '眼睛信息';
                 <th>左眼度数</th>
                 <th>右眼散光</th>
                 <th>左眼散光</th>
+                <th>眼镜度数</th>
                 <th>日期</th>
                 <th>操作</th>
             </tr>
@@ -26,6 +27,7 @@ $this->title = '眼睛信息';
                     <td><?= $item['num_L'] ?></td>
                     <td><?= $item['num_RS'] ?></td>
                     <td><?= $item['num_LS'] ?></td>
+                    <td><?= $item['degrees'] ?></td>
                     <td><?= $item['date'] ?></td>
                     <td><a class="btn btn-primary auto-form-btn" href="<?=Url::to(['edit','id'=>$item['id']]);?>">编辑</a></td>
 

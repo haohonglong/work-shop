@@ -5,13 +5,14 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "eye_info".
+ * This is the model class for table "{{%eye_info}}".
  *
- * @property int $id
+ * @property string $id
  * @property string $num_R 右眼度数
  * @property string $num_L 右眼度数
  * @property string $num_RS 右眼散光
  * @property string $num_LS 左眼散光
+ * @property int $degrees 眼睛的度数
  * @property string $date
  * @property string $advice 医生建议
  * @property int $user_id
@@ -33,10 +34,10 @@ class EyeInfo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['degrees', 'user_id', 'is_del'], 'integer'],
             [['date'], 'safe'],
             [['advice'], 'string'],
-            [['user_id'], 'required'],
-            [['user_id', 'is_del'], 'integer'],
+            [['user_id','num_R', 'num_L', 'num_RS', 'num_LS','degrees'], 'required'],
             [['num_R', 'num_L', 'num_RS', 'num_LS'], 'string', 'max' => 6],
         ];
     }
@@ -69,10 +70,13 @@ class EyeInfo extends \yii\db\ActiveRecord
             'num_L' => '左眼度数',
             'num_RS' => '右眼散光度数',
             'num_LS' => '左眼散光度数',
+            'degrees' => '眼镜度数',
             'date' => 'Date',
             'advice' => '医生建议',
             'user_id' => '用户ID',
             'is_del' => 'Is Del',
         ];
     }
+
+
 }

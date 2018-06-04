@@ -16,6 +16,7 @@ $this->title = '添加眼睛信息';
         <?= $form->field($model, 'num_L') ?>
         <?= $form->field($model, 'num_RS') ?>
         <?= $form->field($model, 'num_LS') ?>
+        <?= $form->field($model, 'degrees') ?>
         <?= $form->field($model, 'advice')->textarea() ?>
 
         <div class="form-group">

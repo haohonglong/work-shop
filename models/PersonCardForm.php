@@ -69,9 +69,10 @@ class PersonCardForm extends Model
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'title' => 'Title',
-            'tip' => 'Tip',
+            'title' => '名称',
+            'tip' => '小提示',
+            'f_id' => '家庭',
+            'type' => '卡的类型',
         ];
     }
 }

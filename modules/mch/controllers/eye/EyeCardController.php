@@ -39,22 +39,27 @@ class EyeCardController extends Controller
     {
         $model = new EyeCardForm();
         $request = yii::$app->request;
-        $model->title = $request->post('title');
-        $model->day = $request->post('day');
-        if ($model->save()) {
-        	
+        if ($model->load($request->post()) && $model->save()) {
+            return $this->redirect(['index']);
         }
+        $var =[
+            'model'=>$model
+        ];
+        return $this->render('add',$var);
     }
 
-    public function actionEdit()
+    public function actionEdit($id)
     {
-        $model = new EyeCardForm();
         $request = yii::$app->request;
-        $model->id = $request->post('id');
-        $model->title = $request->post('title');
-        $model->day = $request->post('day');
-        if ($model->edit()) {
-        	
+        $model = EyeCard::getById($id);
+        if($model){
+            if ($model->load($request->post()) && $model->save()) {
+                return $this->redirect(['index']);
+            }
+            $var =[
+                'model'=>$model
+            ];
+            return $this->render('edit',$var);
         }
     }
 	
@@ -73,13 +78,12 @@ class EyeCardController extends Controller
 			}
 		}
 	}
-    public function actionDel()
+    public function actionDel($id)
     {
-        $request = yii::$app->request;
-        $id = $request->post('id');
         if(EyeCard::del($id)){
-        	
+
         }
+        return $this->redirect(['index']);
 
 
     }

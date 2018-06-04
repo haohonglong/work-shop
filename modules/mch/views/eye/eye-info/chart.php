@@ -41,7 +41,7 @@ $this->title = '眼睛信息图表';
                 trigger: 'axis'
             },
             legend: {
-                data:['左眼度数','右眼度数']
+                data:['人口数','眼镜度数']
             },
 
             calculable : true,
@@ -66,12 +66,12 @@ $this->title = '眼睛信息图表';
             ],
             series : [
                 {
-                    name:'左眼度数',
+                    name:'人口数',
                     type:'line',
                     data:[]
                 },
                 {
-                    name:'右眼度数',
+                    name:'眼镜度数',
                     type:'line',
                     data:[]
                 }
@@ -84,10 +84,10 @@ $this->title = '眼睛信息图表';
             obj = obj || {};
             $.getJSON("<?=Url::to(['/api/eye/eye-info/count']);?>",obj,function(D){
                 if(1 == D.code){
-                    option.series[0].data = D['data']['degrees']['num_L'];
-                    option.series[1].data = D['data']['degrees']['num_R'];
-                    option.xAxis[0].data = option.series[0].data;
-                    option.yAxis[0].data = option.series[1].data;
+                    option.series[0].data = D['data']['population'];
+                    option.series[1].data = D['data']['degrees'];
+                    option.xAxis[0].data = option.series[1].data;
+                    option.yAxis[0].data = option.series[0].data;
                     myChart.setOption(option);
                 }
             });

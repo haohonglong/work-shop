@@ -8,6 +8,7 @@
 
 namespace app\modules\api\controllers\eye;
 
+use app\models\EyeInfoForm;
 use app\models\User;
 use app\models\WorldPerson;
 use yii;
@@ -42,16 +43,8 @@ class EyeInfoController extends BaseController
     public function actionAdd()
     {
         $request = yii::$app->request;
-        $model = new EyeInfo();
-        $model->advice = $request->post('advice');
-        $model->user_id = $request->post('user_id');
-        $model->num_R = $request->post('num_R');
-        $model->num_L = $request->post('num_L');
-        $model->num_RS = $request->post('num_RS');
-        $model->num_LS = $request->post('num_LS');
-        $date = $request->post('date');
-        if($date){$model->date = $date;}
-        if ($model->validate() && $model->save()) {
+        $model = new EyeInfoForm();
+        if ($model->load($request->post(),'') && $model->save()) {
             return Response::json(1,'成功');
         }
 	    return Response::json(0,'失败');
@@ -78,22 +71,13 @@ class EyeInfoController extends BaseController
     public function actionEdit()
     {
         $request = yii::$app->request;
-        $model = EyeInfo::getById($request->post('id'));
-        if($model){
-            $model->num_R = $request->post('num_R');
-            $model->num_L = $request->post('num_L');
-            $model->num_RS = $request->post('num_RS');
-            $model->num_LS = $request->post('num_LS');
-            $date = $request->post('date');
-            if($date){
-                $model->date = $date;
+        $id = $request->post('id');
+        if($id){
+            $model = new EyeInfoForm();
+            if ($model->load($request->post(),'') && $model->edit($id)) {
+                return Response::json(1,'成功');
             }
-            $model->advice = $request->post('advice');
-            $model->user_id = $request->post('user_id');
-            if ($model->validate() && $model->save()) {
-	            return Response::json(1,'成功');
-            }
-	        return Response::json(0,'失败');
+            return Response::json(0,'失败');
         }
         return Response::json('0','没有对应id 信息');
 
@@ -123,10 +107,27 @@ class EyeInfoController extends BaseController
         $data = $query->all();
         if($data){
             $arr = [];
+            $arr2 = [];
+            $degrees = [];
+            $population = [];
             foreach ($data as $k => $item){
-                $arr['degrees']['num_R'][]=$item['num_R'];
-                $arr['degrees']['num_L'][]=$item['num_L'];
+                if(!isset($arr2[$item['degrees']])){
+                    $arr2[$item['degrees']] = 0;
+                }
+                $arr2[$item['degrees']]++;
+
+                $arr['num_R'][]=$item['num_R'];
+                $arr['num_L'][]=$item['num_L'];
             }
+
+            foreach ($arr2 as $key =>$value){
+                $degrees[] = $key;
+                $population[] = $value;
+            }
+
+            $arr['degrees'] = $degrees;
+            $arr['population'] = $population;
+
             return Response::json(1,'',$arr);
         }
         return Response::json(0,'数据获取失败');

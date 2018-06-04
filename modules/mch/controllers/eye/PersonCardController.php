@@ -1,17 +1,19 @@
 <?php
 namespace app\modules\mch\controllers\eye;
 
+use app\models\Family;
 use app\modules\mch\controllers\Controller;
 use yii;
 use app\models\PersonCard;
 use app\models\PersonCardForm;
 use yii\data\Pagination;
-
+use yii\db\Query;
+use yii\helpers\ArrayHelper;
 
 
 class PersonCardController extends Controller
 {
-    function actionIndex()
+    public function actionIndex()
     {
 	    $query =PersonCard::find()->select('id,f_id,title,tip,type')->where(['is_del'=>0]);
 	    $count = $query->count();
@@ -27,38 +29,52 @@ class PersonCardController extends Controller
 	    return $this->render('index',$var);
     }
 
-    function actionAdd()
+    /**
+     * @return array
+     */
+    private function getFamily()
+    {
+        $data = (new Query())->select('id,name')->from(Family::tableName())->all();
+        $data = ArrayHelper::map($data, 'id', 'name');
+        return $data;
+    }
+
+    public function actionAdd()
     {
         $model = new PersonCardForm();
         $request = yii::$app->request;
-        $model->title = $request->post('title');
-        $model->f_id = $request->post('f_id');
-        $model->tip = $request->post('tip');
-        $model->type = $request->post('type');
-        if ($model->save()) {
-            return Response::json(1,'成功');
+
+
+        if ($model->load($request->post()) && $model->save()) {
+            return $this->redirect(['index']);
         }
-	    return Response::json(0,'失败');
+        $var =[
+            'model'=>$model,
+            'family_list'=>$this->getFamily(),
+        ];
+        return $this->render('add',$var);
+
     }
-    function actionEdit()
-    {
-        $model = new PersonCardForm();
-        $request = yii::$app->request;
-        $model->id = $request->post('id');
-        $model->title = $request->post('title');
-        $model->tip = $request->post('tip');
-        if ($model->edit()) {
-	        return Response::json(1,'成功');
-        }
-	    return Response::json(0,'失败');
-    }
-    function actionDel()
+    public function actionEdit($id)
     {
         $request = yii::$app->request;
-        $id = $request->post('id');
+        $model = PersonCard::getById($id);
+        if($model){
+            if ($model->load($request->post()) && $model->save()) {
+                return $this->redirect(['index']);
+            }
+            $var =[
+                'model'=>$model,
+                'family_list'=>$this->getFamily(),
+            ];
+            return $this->render('edit',$var);
+        }
+    }
+    public function actionDel($id)
+    {
         if(PersonCard::del($id)){
-	        return Response::json(1,'成功');
+
         }
-	    return Response::json(0,'失败');
+        return $this->redirect(['index']);
     }
 }

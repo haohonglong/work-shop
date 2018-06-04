@@ -455,6 +455,14 @@ class MchMenu
 					        'route' => 'mch/eye/eye-card/index',
 				        ],
 			        ],
+                    [
+				        'name' => '家庭',
+				        'route' => 'mch/eye/family/index',
+				        'sub' => [
+                            'route' => 'mch/eye/family/index',
+				        ],
+			        ],
+
 			        [
 				        'name' => '人员卡',
 				        'route' => 'mch/eye/person-card/index',
