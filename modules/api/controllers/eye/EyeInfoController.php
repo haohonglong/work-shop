@@ -8,6 +8,7 @@
 
 namespace app\modules\api\controllers\eye;
 
+use app\helper\Date;
 use app\models\EyeInfoForm;
 use app\models\User;
 use app\models\WorldPerson;
@@ -102,7 +103,12 @@ class EyeInfoController extends BaseController
         $date = yii::$app->request->get('date');
         $query = (new Query())->from(EyeInfo::tableName());
         if($date){
-            $query->where('year(date) = :date',[':date'=>$date]);
+            if(count($date) < 3){
+                $arr = Date::getYear($date);
+                $query->where(['between','date',$arr[0],$arr[1]]);
+            }else{
+                $query->where('year(date) = :date',[':date'=>$date]);
+            }
         }
         $data = $query->all();
         if($data){
