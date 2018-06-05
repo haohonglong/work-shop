@@ -196,7 +196,7 @@ CREATE TABLE `ushop_world_person` (
   `degrees` int(11) unsigned NOT NULL COMMENT '眼镜度数',
   `population` int(11) unsigned NOT NULL COMMENT '人口统计数',
   PRIMARY KEY (`degrees`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '世界卫生组织统计数——测试用';
 INSERT INTO `ushop_world_person` VALUES
 ('100', '876545'),
 ('110', '8765789'),

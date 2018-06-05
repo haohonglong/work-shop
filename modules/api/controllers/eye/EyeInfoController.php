@@ -9,8 +9,10 @@
 namespace app\modules\api\controllers\eye;
 
 use app\helper\Date;
+use app\models\Article;
 use app\models\EyeInfoForm;
 use app\models\User;
+use app\models\Video;
 use app\models\WorldPerson;
 use yii;
 use yii\db\Query;
@@ -157,5 +159,49 @@ class EyeInfoController extends BaseController
             return Response::json(1,'',$arr);
         }
         return Response::json(0,'数据获取失败');
+    }
+
+    /**
+     * 根据type 获取 文章或视频的相关信息
+     * @return object
+     */
+    public function actionGetTypeInfo()
+    {
+        $request = yii::$app->request;
+        $user_id = $request->get('user_id');
+        $type = $request->get('type');
+        $id = $request->get('id');
+        $query = (new Query())
+            ->select('u.id as user_id,r.type,r.relation_id')
+            ->from(['u'=>User::tableName()])
+            ->leftJoin('ushop_eye_user_with_relation as r','r.user_id = u.id and r.type');
+            switch($type){
+                case 1://article
+                    $query->addSelect('a.id,a.title,a.content,a.addtime as create_time')
+                        ->leftJoin(['a'=>Article::tableName()],'r.relation_id = a.id')
+                        ->where(['a.is_delete'=>0]);
+                    break;
+                case 2://video
+                    $query->addSelect('v.id,v.title,v.url,v.content,v.addtime as create_time')
+                        ->leftJoin(['v'=>Video::tableName()],'r.relation_id = v.id')
+                        ->where(['v.is_delete'=>0]);
+                    break;
+
+                default:
+                    return Response::json(0,'type 类型错误');
+            }
+
+            $query->andWhere(['r.type'=>$type,'r.relation_id'=>$id,'u.id'=>$user_id]);
+
+        $data = $query->all();
+
+        if($data){
+            foreach ($data as &$item){
+                $item['create_time'] = date('Y-m-d H:i:s',$item['create_time']);
+            }
+            return Response::json(1,'success',$data);
+        }
+        return Response::json(0,'没有数据');
+
     }
 }
