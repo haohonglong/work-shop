@@ -103,7 +103,7 @@ class EyeInfoController extends BaseController
         $date = yii::$app->request->get('date');
         $query = (new Query())->from(EyeInfo::tableName());
         if($date){
-            if(count($date) < 3){
+            if(count($date) < 3){//按几年内筛选
                 $arr = Date::getYear($date);
                 $query->where(['between','date',$arr[0],$arr[1]]);
             }else{

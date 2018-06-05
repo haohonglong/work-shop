@@ -5,10 +5,10 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "ushop_world_person".
+ * This is the model class for table "{{%world_person}}".
  *
- * @property string $degrees 鐪肩潧搴︽暟
- * @property string $population 浜哄彛鏁伴噺
+ * @property string $degrees 眼镜度数
+ * @property string $population 人口统计数
  */
 class WorldPerson extends \yii\db\ActiveRecord
 {
