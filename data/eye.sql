@@ -195,3 +195,10 @@ INSERT INTO `ushop_world_person` VALUES
 ('780', '876546'),
 ('800', '876976'),
 ('1000', '5000');
+
+
+-- 根据type 获取 文章或视频的相关信息
+select u.id as user_id,a.id,a.title,a.content,a.addtime as create_time,r.type,r.relation_id from `ushop_user` as u
+  LEFT JOIN `ushop_eye_user_with_relation` as r on r.user_id = u.id
+  LEFT JOIN `ushop_article` as a on r.relation_id = a.id and r.type = 1
+where r.type = 1 and r.relation_id = 1 and u.id and a.is_delete = 0;

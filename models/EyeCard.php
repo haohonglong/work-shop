@@ -58,8 +58,8 @@ class EyeCard extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'day' => 'Day',
+            'title' => '名称',
+            'day' => '天数',
             'is_del' => 'Is Del',
         ];
     }
