@@ -55,15 +55,7 @@ class EyeInfoController extends Controller
 		}
     }
 
-    /**
-     * @return array
-     */
-    private function getUsers()
-    {
-        $data = (new Query())->select('id,nickname')->from(User::tableName())->all();
-        $data = yii\helpers\ArrayHelper::map($data, 'id', 'nickname');
-        return $data;
-    }
+
 
     public function actionAdd()
     {

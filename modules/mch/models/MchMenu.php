@@ -477,6 +477,16 @@ class MchMenu
 				        ],
 			        ],
                     [
+                        'name' => '关联文章或视频',
+                        'route' => 'mch/eye/article-relation/index',
+                        'sub' => [
+                            'mch/eye/article-relation/index',
+                            'mch/eye/article-relation/add',
+                            'mch/eye/article-relation/edit',
+                        ]
+
+                    ],
+                    [
 				        'name' => '眼睛信息',
 				        'route' => 'mch/eye/eye-info/count',
 				        'list' => [

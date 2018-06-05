@@ -7,11 +7,13 @@
 
 namespace app\modules\mch\controllers;
 
+use app\models\User;
 use Yii;
 use app\models\Store;
 use app\models\WechatApp;
 use app\modules\mch\models\MchMenu;
 use xanyext\wechat\Wechat;
+use yii\db\Query;
 
 /**
  * 商城后台控制器基类
@@ -127,6 +129,16 @@ class Controller extends \app\controllers\Controller
         $MchMenu = new MchMenu();
         $res = $MchMenu->getList();
         return $res;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getUsers()
+    {
+        $data = (new Query())->select('id,nickname')->from(User::tableName())->all();
+        $data = yii\helpers\ArrayHelper::map($data, 'id', 'nickname');
+        return $data;
     }
 
 }
