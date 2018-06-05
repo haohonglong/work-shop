@@ -17,7 +17,7 @@ $this->title = '添加用户关联文章或视频等类型';
 
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::submitButton('添加信息', ['class' => 'btn btn-primary']) ?>
+                <?= Html::submitButton('添加', ['class' => 'btn btn-primary']) ?>
             </div>
         </div>
         <?php ActiveForm::end() ?>
