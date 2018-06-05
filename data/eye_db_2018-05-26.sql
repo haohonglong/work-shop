@@ -24,11 +24,12 @@ CREATE TABLE `ushop_eye_user` (
   `user_id` int(11) unsigned DEFAULT '0' COMMENT '',
   `family_id` int(11) unsigned DEFAULT '0' COMMENT '成员属于哪个家庭的',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='眼睛客户附加信息';
 
-DROP TABLE IF EXISTS `ushop_eye_user_and_article`;
-CREATE TABLE `ushop_eye_user_and_article` (
+DROP TABLE IF EXISTS `ushop_eye_user_with_article`;
+CREATE TABLE `ushop_eye_user_with_article` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '1:article，2:video',
   `article_id` int(11) unsigned DEFAULT '0' COMMENT '',
   `user_id` int(11) unsigned DEFAULT '0' COMMENT '',
   PRIMARY KEY (`id`)

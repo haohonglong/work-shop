@@ -42,6 +42,38 @@ CREATE TABLE `user` (
    (null,'李小花',2,2,'$2y$13$PeYpzXZJEQCG8ThP.BAYoerQHEbKVjQh3Vfx6gEpU7cKOIdR2.Sma','343&&&fd','rqerewrqew####',NOW(),0,'小花',15,'dsfadsfads',1),
    (null,'李小明',1,2,'$2y$13$PeYpzXZJEQCG8ThP.BAYoerQHEbKVjQh3Vfx6gEpU7cKOIdR2.Sma','343&&&fd','rqerewrqew####',NOW(),0,'小明',15,'dsfadsfads',1);
 
+DROP TABLE IF EXISTS `ushop_eye_user`;
+CREATE TABLE `ushop_eye_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `family_type` tinyint(1) unsigned DEFAULT '1' COMMENT '家庭成员特征：1:家长，2：学生，3：老人',
+  `sex` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '1:男，0:女',
+  `age` tinyint(3) unsigned DEFAULT NULL,
+  `patient_age` tinyint(3) unsigned DEFAULT NULL COMMENT '患者的年龄',
+  `user_id` int(11) unsigned DEFAULT '0' COMMENT '',
+  `family_id` int(11) unsigned DEFAULT '0' COMMENT '成员属于哪个家庭的',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='眼睛客户附加信息';
+
+DROP TABLE IF EXISTS `ushop_eye_user_with_article`;
+CREATE TABLE `ushop_eye_user_with_article` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `article_id` int(11) unsigned DEFAULT '0' COMMENT '',
+  `user_id` int(11) unsigned DEFAULT '0' COMMENT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章关联用户表';
+
+DROP TABLE IF EXISTS `ushop_map_location`;
+CREATE TABLE `ushop_map_location` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `latitude` varchar(255) COMMENT '纬度，浮点数，范围为-90~90，负数表示南纬',
+  `longitude` varchar(255) COMMENT '经度，浮点数，范围为-180~180，负数表示西经',
+  `accuracy` varchar(255) COMMENT '位置的精确度',
+  `user_id` int(11) unsigned DEFAULT '0' COMMENT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='地图坐标';
+
+
+
 DROP TABLE IF EXISTS `person_card`;
 CREATE TABLE `person_card` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
