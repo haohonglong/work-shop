@@ -20,9 +20,9 @@ class PersonCardController extends BaseController
             ->innerJoin(['p'=>PersonCard::tableName()],'p.user_id = u.id')
             ->where(['p.is_del'=>0])->all();
         if($data){
-	        return Response::json(1,'成功',$data);
+	        return Response::json(1,'successfully',$data);
         }
-	    return Response::json(0,'成功',$data);
+	    return Response::json(0,'fail');
     }
 
     function actionAdd()
@@ -35,9 +35,9 @@ class PersonCardController extends BaseController
         $model->tip = $request->post('tip');
         $model->type = $request->post('type');
         if ($model->save()) {
-            return Response::json(1,'成功');
+            return Response::json(1,'successfully');
         }
-	    return Response::json(0,'失败');
+	    return Response::json(0,'fail');
     }
     function actionEdit()
     {
@@ -47,17 +47,17 @@ class PersonCardController extends BaseController
         $model->title = $request->post('title');
         $model->tip = $request->post('tip');
         if ($model->edit()) {
-            return Response::json(1,'成功');
+            return Response::json(1,'successfully');
         }
-	    return Response::json(0,'失败');
+	    return Response::json(0,'fail');
     }
     function actionDel()
     {
         $request = yii::$app->request;
         $id = $request->post('id');
         if(PersonCard::del($id)){
-	        return Response::json(1,'成功');
+	        return Response::json(1,'successfully');
         }
-	    return Response::json(0,'失败');
+	    return Response::json(0,'fail');
     }
 }

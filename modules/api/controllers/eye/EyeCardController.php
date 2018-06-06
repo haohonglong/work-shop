@@ -116,17 +116,7 @@ class EyeCardController extends BaseController
     }
 
 
-    public function actionDel()
-    {
-        $request = yii::$app->request;
-        $id = $request->post('id');
-        if(EyeCard::del($id)){
-            return Response::json(1,'成功');
-        }
-	    return Response::json(0,'失败');
 
-
-    }
 
 
 
