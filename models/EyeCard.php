@@ -39,6 +39,17 @@ class EyeCard extends \yii\db\ActiveRecord
 	{
 		return self::find()->where(['id'=>$id])->limit(1)->one();
 	}
+    public static function del($id)
+    {
+        $model = self::getById($id);
+        if($model){
+            $model->is_del = 1;
+            if($model->save()){
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * @inheritdoc
@@ -47,8 +58,8 @@ class EyeCard extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'day' => 'Day',
+            'title' => '名称',
+            'day' => '天数',
             'is_del' => 'Is Del',
         ];
     }

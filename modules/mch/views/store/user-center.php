@@ -109,7 +109,7 @@ $this->params['active_nav_group'] = 1;
                                     <div class="menu-name" flex="cross:center"><?= $item['name'] ?></div>
                                     <div class="text-right menu-switch" flex="cross:center main:right">
                                         <label class="custom-control custom-checkbox mb-0 mr-0">
-                                            <input <?= $item['is_show'] == 1 ? 'checked' : null ?>
+                                            <input <?= isset($item['is_show']) && $item['is_show'] == 1 ? 'checked' : null ?>
                                                     name="model[<?= is_numeric($i) ? ('item_' . $i) : $i ?>][is_show]"
                                                     type="checkbox"
                                                     value="1"

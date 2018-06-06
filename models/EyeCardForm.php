@@ -65,8 +65,8 @@ class EyeCardForm extends Model
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'day' => 'Day',
+            'title' => '名称',
+            'day' => '天数',
         ];
     }
 }

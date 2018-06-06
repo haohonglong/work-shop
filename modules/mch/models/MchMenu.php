@@ -443,6 +443,24 @@ class MchMenu
                     ],
                 ],
             ],
+            [
+                'name' => '分配关联',
+                'route' => 'mch/eye/article-relation/index',
+                'icon' => 'icon-pintu-m',
+                'list'=>[
+                    [
+                        'name' => '关联用户',
+                        'route' => 'mch/eye/article-relation/index',
+                        'sub' => [
+                            'mch/eye/article-relation/index',
+                            'mch/eye/article-relation/add',
+                            'mch/eye/article-relation/edit',
+                        ]
+                    ]
+                ]
+
+
+            ],
 	        [
 		        'name' => '眼睛',
 		        'route' => 'mch/eye/eye-card/index',
@@ -452,16 +470,62 @@ class MchMenu
 				        'name' => '眼睛卡',
 				        'route' => 'mch/eye/eye-card/index',
 				        'sub' => [
-					        'route' => 'mch/eye/eye-card/index',
+					        'mch/eye/eye-card/index',
+					        'mch/eye/eye-card/add',
+					        'mch/eye/eye-card/edit',
 				        ],
 			        ],
+                    [
+				        'name' => '家庭',
+				        'route' => 'mch/eye/family/index',
+				        'sub' => [
+                            'mch/eye/family/index',
+                            'mch/eye/family/add',
+                            'mch/eye/family/edit',
+				        ],
+			        ],
+
 			        [
 				        'name' => '人员卡',
 				        'route' => 'mch/eye/person-card/index',
 				        'sub' => [
 					        'mch/eye/person-card/index',
+					        'mch/eye/person-card/add',
+					        'mch/eye/person-card/edit',
 				        ],
 			        ],
+                    [
+				        'name' => '眼睛信息',
+				        'route' => 'mch/eye/eye-info/count',
+				        'list' => [
+				            [
+                                'name' => '世界数据',
+                                'route' => 'mch/eye/eye-info/world-count',
+                                'sub' => [
+                                    'mch/eye/eye-info/world-count',
+                                ],
+                            ],
+                            [
+                                'name' => '眼睛数据图表',
+                                'route' => 'mch/eye/eye-info/count',
+                                'sub' => [
+                                    'mch/eye/eye-info/count',
+                                    'mch/eye/eye-info/add',
+                                ],
+                            ],
+                            [
+                                'name' => '眼睛数据列表',
+                                'route' => 'mch/eye/eye-info/index',
+                                'sub' => [
+                                    'mch/eye/eye-info/index',
+                                    'mch/eye/eye-info/edit',
+                                ],
+                            ]
+
+				        ],
+			        ],
+
+
 		        ],
 	        ],
 

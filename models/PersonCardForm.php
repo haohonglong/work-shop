@@ -19,6 +19,7 @@ class PersonCardForm extends Model
     public $title;
     public $tip;
     public $type;
+    public $user_id;
 
     /**
      * {@inheritdoc}
@@ -26,8 +27,8 @@ class PersonCardForm extends Model
     public function rules()
     {
         return [
-            [['title', 'tip', 'f_id'], 'required'],
-            [['f_id', 'type'], 'integer'],
+            [['title', 'tip', 'f_id','user_id'], 'required'],
+            [['f_id', 'type','user_id'], 'integer'],
             [['title'], 'string', 'max' => 20],
             [['tip'], 'string', 'max' => 128],
         ];
@@ -40,6 +41,7 @@ class PersonCardForm extends Model
             $model->f_id = $this->f_id;
             $model->title = $this->title;
             $model->tip = $this->tip;
+            $model->user_id = $this->user_id;
             $model->type = $this->type;
             if($model->save()){
                 return true;
@@ -51,16 +53,14 @@ class PersonCardForm extends Model
 
     public function edit()
     {
-        if($this->validate()){
-            $model = PersonCard::getById($this->id);
-            if($model){
-                $model->title = $this->title;
-                $model->tip = $this->tip;
-                if($model->save()){
-                    return true;
-                }
-                $this->addError($model->getErrors());
+        $model = PersonCard::getById($this->id);
+        if($model){
+            $model->title = $this->title;
+            $model->tip = $this->tip;
+            if($model->save()){
+                return true;
             }
+            $this->addError($model->getErrors());
         }
         return false;
     }
@@ -71,9 +71,11 @@ class PersonCardForm extends Model
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'title' => 'Title',
-            'tip' => 'Tip',
+            'title' => '名称',
+            'tip' => '小提示',
+            'f_id' => '家庭',
+            'user_id' => '用户id',
+            'type' => '卡的类型',
         ];
     }
 }

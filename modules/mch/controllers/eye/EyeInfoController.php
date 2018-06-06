@@ -8,6 +8,8 @@
 
 namespace app\modules\mch\controllers\eye;
 
+use app\helper\Response;
+use app\models\EyeInfoForm;
 use app\modules\mch\controllers\Controller;
 
 use app\models\User;
@@ -27,11 +29,14 @@ class EyeInfoController extends Controller
 	    $request = yii::$app->request;
 	    $type = $request->get('type');
 	    $query = User::find()
-		    ->select('u.id as user_id,u.sex,u.username,u.age,u.avatar_url,u.family_type')
+		    ->select('u.id as user_id,u.sex,u.username,u.age,u.avatar_url,u.family_type,e.degrees')
 		    ->addSelect('e.*')
 		    ->from(User::tableName().' as u')
 		    ->innerJoin(EyeInfo::tableName().' as e','e.user_id = u.id')
-		    ->where(['e.is_del'=>0,'u.family_type'=>$type]);
+		    ->where(['e.is_del'=>0]);
+	    if($type){
+	        $query->andWhere(['u.family_type'=>$type]);
+        }
 		if($query){
 			$count = $query->count();
 			$pagination = new Pagination(['totalCount' => $count]);
@@ -50,46 +55,40 @@ class EyeInfoController extends Controller
 		}
     }
 
+
+
     public function actionAdd()
     {
         $request = yii::$app->request;
-        $model = new EyeInfo();
-        $model->advice = $request->post('advice');
-        $model->user_id = $request->post('user_id');
-        $model->num_R = $request->post('num_R');
-        $model->num_L = $request->post('num_L');
-        $model->num_RS = $request->post('num_RS');
-        $model->num_LS = $request->post('num_LS');
-        $date = $request->post('date');
-        if($date){$model->date = $date;}
-        if ($model->validate() && $model->save()) {
-            return Response::json(1,'成功');
+        $model = new EyeInfoForm();
+        if ($model->load($request->post()) && $model->save()) {
+            return $this->redirect(['count']);
         }
-	    return Response::json(0,'失败');
+
+        $var =[
+            'model'=>$model,
+            'user_list'=>$this->getUsers(),
+        ];
+        return $this->render('add',$var);
     }
 
-    public function actionEdit()
+    public function actionEdit($id)
     {
         $request = yii::$app->request;
-        $model = EyeInfo::getById($request->post('id'));
+        $model = EyeInfo::getById($id);
         if($model){
-            $model->num_R = $request->post('num_R');
-            $model->num_L = $request->post('num_L');
-            $model->num_RS = $request->post('num_RS');
-            $model->num_LS = $request->post('num_LS');
-            $date = $request->post('date');
-            if($date){
-                $model->date = $date;
+            if ($model->load($request->post())) {
+                $model->m_date = date('Y-m-d H:i:s');
+                if($model->save()){
+                    return $this->redirect(['count']);
+                }
             }
-            $model->advice = $request->post('advice');
-            $model->user_id = $request->post('user_id');
-            if ($model->validate() && $model->save()) {
-	            return Response::json(1,'成功');
-            }
-	        return Response::json(0,'失败');
+            $var =[
+                'model'=>$model,
+                'user_list'=>$this->getUsers(),
+            ];
+            return $this->render('edit',$var);
         }
-        return Response::json('0','没有对应id 信息');
-
     }
 
     public function actionDel()
@@ -100,5 +99,23 @@ class EyeInfoController extends Controller
 	        return Response::json(1,'成功');
         }
 	    return Response::json(0,'失败');
+    }
+
+    /**
+     * 显示图表
+     * @return string
+     */
+    public function actionCount()
+    {
+        return $this->render('chart');
+    }
+
+    /**
+     * 显示世界卫生组织眼镜度数及人口的数据
+     * @return string
+     */
+    public function actionWorldCount()
+    {
+        return $this->render('worldChart');
     }
 }

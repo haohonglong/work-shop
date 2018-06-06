@@ -5,10 +5,10 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "family".
+ * This is the model class for table "ushop_family".
  *
  * @property int $id
- * @property string $username
+ * @property string $name
  */
 class Family extends \yii\db\ActiveRecord
 {
@@ -26,9 +26,14 @@ class Family extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username'], 'required'],
-            [['username'], 'string', 'max' => 10],
+            [['name'], 'required'],
+            [['name'], 'string', 'max' => 10],
         ];
+    }
+
+    public static function getById($id)
+    {
+        return self::find()->where(['id'=>$id])->limit(1)->one();
     }
 
     /**
@@ -38,7 +43,7 @@ class Family extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'username' => 'Username',
+            'name' => '名称',
         ];
     }
 }

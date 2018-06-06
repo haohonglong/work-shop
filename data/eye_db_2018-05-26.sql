@@ -13,11 +13,31 @@
 
 
  USE `my_db`;
+
+DROP TABLE IF EXISTS `ushop_eye_user`;
+CREATE TABLE `ushop_eye_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `family_type` tinyint(1) unsigned DEFAULT '1' COMMENT '家庭成员特征：1:家长，2：学生，3：老人',
+  `sex` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '1:男，0:女',
+  `age` tinyint(3) unsigned DEFAULT NULL,
+  `patient_age` tinyint(3) unsigned DEFAULT NULL COMMENT '患者的年龄',
+  `user_id` int(11) unsigned DEFAULT '0' COMMENT '',
+  `family_id` int(11) unsigned DEFAULT '0' COMMENT '成员属于哪个家庭的',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='眼睛客户附加信息';
+
+DROP TABLE IF EXISTS `ushop_eye_user_with_relation`;
+CREATE TABLE `ushop_eye_user_with_relation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '1:article，2:video',
+  `relation_id` int(11) unsigned DEFAULT '0' COMMENT '',
+  `user_id` int(11) unsigned DEFAULT '0' COMMENT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户关联文章或视频等类型';
+
 # Dump of table ushop_eye_card
 # ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `ushop_eye_card`;
-
 CREATE TABLE `ushop_eye_card` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` char(50) NOT NULL,
@@ -54,12 +74,16 @@ CREATE TABLE `ushop_eye_info` (
   `num_L` char(6) DEFAULT '0' COMMENT '右眼度数',
   `num_RS` char(6) DEFAULT '0' COMMENT '右眼散光',
   `num_LS` char(6) DEFAULT '0' COMMENT '左眼散光',
-  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `c_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+  `m_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新日期',
   `advice` text COMMENT '医生建议',
   `user_id` int(11) NOT NULL,
   `is_del` tinyint(1) DEFAULT '0' COMMENT '1:删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE ushop_eye_info DROP m_date;
+ALTER TABLE ushop_eye_info ADD `m_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP  COMMENT '更新日期' AFTER `date`;
+
 
 LOCK TABLES `ushop_eye_info` WRITE;
 /*!40000 ALTER TABLE `ushop_eye_info` DISABLE KEYS */;
@@ -167,4 +191,40 @@ VALUES
 /*!40000 ALTER TABLE `ushop_person_card` ENABLE KEYS */;
 UNLOCK TABLES;
 
-
+DROP TABLE IF EXISTS `ushop_world_person`;
+CREATE TABLE `ushop_world_person` (
+  `degrees` int(11) unsigned NOT NULL COMMENT '眼镜度数',
+  `population` int(11) unsigned NOT NULL COMMENT '人口统计数',
+  PRIMARY KEY (`degrees`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '世界卫生组织统计数——测试用';
+INSERT INTO `ushop_world_person` VALUES
+('100', '876545'),
+('110', '8765789'),
+('150', '3567878'),
+('200', '10000'),
+('250', '456789087'),
+('260', '4356754'),
+('285', '5460987'),
+('300', '20000'),
+('320', '65546'),
+('330', '87654546'),
+('335', '253466'),
+('350', '459876564'),
+('360', '897654'),
+('380', '98765564'),
+('400', '230453436'),
+('420', '8765446'),
+('425', '987665'),
+('450', '876543'),
+('500', '2360000'),
+('530', '87667098'),
+('550', '45678876'),
+('600', '876534'),
+('660', '87643567'),
+('670', '453678'),
+('700', '560000'),
+('750', '987654'),
+('770', '897654'),
+('780', '876546'),
+('800', '876976'),
+('1000', '5000');
