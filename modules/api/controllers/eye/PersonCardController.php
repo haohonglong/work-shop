@@ -1,6 +1,7 @@
 <?php
 namespace app\modules\api\controllers\eye;
 
+use app\models\User;
 use yii;
 use app\helper\Response;
 use app\models\PersonCard;
@@ -13,7 +14,11 @@ class PersonCardController extends BaseController
 {
     function actionIndex()
     {
-        $data = (new Query())->select('id,f_id,title,tip,type')->from(PersonCard::tableName())->where(['is_del'=>0])->all();
+        $data = (new Query())
+            ->select('p.id,p.f_id,p.title,p.tip,p.type,u.id as user_id,u.avatar_url')
+            ->from(['u'=>User::tableName()])
+            ->innerJoin(['p'=>PersonCard::tableName()],'p.user_id = u.id')
+            ->where(['p.is_del'=>0])->all();
         if($data){
 	        return Response::json(1,'成功',$data);
         }
@@ -25,6 +30,7 @@ class PersonCardController extends BaseController
         $model = new PersonCardForm();
         $request = yii::$app->request;
         $model->title = $request->post('title');
+        $model->user_id = $request->post('user_id');
         $model->f_id = $request->post('f_id');
         $model->tip = $request->post('tip');
         $model->type = $request->post('type');
