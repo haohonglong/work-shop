@@ -31,7 +31,21 @@ class EyeUserWithRelation extends \yii\db\ActiveRecord
             [['type', 'relation_id', 'user_id'], 'integer'],
         ];
     }
-
+    /**
+     * 同一类型同一id同一人不能添加两次
+     * @param $model
+     * @return bool
+     */
+    public static function has_one($model)
+    {
+        $data = self::find()
+            ->where(['type'=>$model->type,'relation_id'=>$model->relation_id,'user_id'=>$model->user_id])
+            ->one();
+        if($data){
+            return true;
+        }
+        return false;
+    }
     /**
      * {@inheritdoc}
      */
