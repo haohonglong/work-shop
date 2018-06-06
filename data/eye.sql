@@ -101,12 +101,24 @@ CREATE TABLE `eye_card` (
   `is_del` TINYINT(1)  DEFAULT 0 COMMENT '1:删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='';
+ALTER TABLE eye_card
+drop `day` ,
+drop `is_del` ;
 
 INSERT INTO `eye_card` VALUES
 (null,'每日打卡',5,0),
 (null,'眼部保健',5,0),
 (null,'眨眼锻炼',3,0),
 (null,'补充维生素A',5,0);
+
+ DROP TABLE IF EXISTS `ushop_eye_record_log`;
+ CREATE TABLE `ushop_eye_record_log` (
+   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+   `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '打卡日期',
+   `eye_card_id` int(11) NOT NULL COMMENT  '打卡的id',
+   `user_id` int(11) NOT NULL,
+   PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='记录打卡次数';
 
 
  DROP TABLE IF EXISTS `eye_info`;

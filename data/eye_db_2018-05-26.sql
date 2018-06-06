@@ -62,6 +62,14 @@ VALUES
 /*!40000 ALTER TABLE `ushop_eye_card` ENABLE KEYS */;
 UNLOCK TABLES;
 
+ DROP TABLE IF EXISTS `ushop_eye_record_log`;
+ CREATE TABLE `ushop_eye_record_log` (
+   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+   `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '打卡日期',
+   `eye_card_id` int(11) NOT NULL COMMENT  '打卡的id',
+   `user_id` int(11) NOT NULL,
+   PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='记录打卡次数';
 
 # Dump of table ushop_eye_info
 # ------------------------------------------------------------
