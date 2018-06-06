@@ -19,6 +19,10 @@ use app\helper\Response;
 
 class EyeCardController extends BaseController
 {
+    /**
+     * 获取打卡
+     * @return object
+     */
     public function actionIndex()
     {
 
@@ -30,7 +34,6 @@ class EyeCardController extends BaseController
             ->innerJoin(['c'=>EyeCard::tableName()],'r.eye_card_id = c.id')
             ->where(['r.user_id'=>$user_id])
             ->all();
-
         if(!empty($data)){
             $arr=[];
             foreach ($data as $k => $v){
@@ -39,19 +42,23 @@ class EyeCardController extends BaseController
                         'id'=>$v['id'],
                         'title'=>$v['title'],
                         'time'=>[],
-                        'count'=>0,
+                        'day'=>0,
                         'status'=>0,
                     ];
                 }
                 $arr[$v['id']]['time'][] = $v['create_at'];
-                $arr[$v['id']]['count']++;
-                if(Date::isCurent($v['create_at'])){
+                if(Date::isCurentMonth($v['create_at'])){
+                    $arr[$v['id']]['day']++;
+                }
+                if(Date::isCurentDay($v['create_at'])){
                     $arr[$v['id']]['status'] = 1;
                 }
 
             }
-        $arr = array_values($arr);
-            $data = $arr;
+            foreach ($arr as &$v){
+                unset($v['time']);
+            }
+            $data = array_values($arr);;
 	        return Response::json(1,'成功',$data);
         }
 	    return Response::json(0,'失败');
@@ -94,7 +101,7 @@ class EyeCardController extends BaseController
             ->where(['user_id'=>$user_id,'eye_card_id'=>$eye_card_id])->all();
         if($data){
             foreach ($data as $k => $v){
-                if(Date::isCurent($v['create_at'])){
+                if(Date::isCurentDay($v['create_at'])){
                     return Response::json(0,'今天已经打过卡了');
                 }
             }

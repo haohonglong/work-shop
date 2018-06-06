@@ -46,10 +46,26 @@ class Date
      * @param {String}$time
      * @return bool
      */
-    public static function isCurent($time)
+    public static function isCurentDay($time)
     {
         $cur = (int)str_replace('-','',date('Y-m-d'));
         $time = (int)str_replace('-','',explode(' ',$time)[0]);
+        if(($cur - $time) < 1) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 指定的时间是否是当月的
+     * @param {String}$time
+     * @return bool
+     */
+    public static function isCurentMonth($time)
+    {
+        $cur = (int)date('m');
+        $time = explode(' ',$time)[0];
+        $time = (int)explode('-',$time)[1];
         if(($cur - $time) < 1) {
             return true;
         }
