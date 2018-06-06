@@ -16,7 +16,7 @@ use app\modules\mch\models\Model;
 
 class ArticleController extends BaseController
 {
-    public function actionIndex($cat_id = 1)
+    public function actionIndex()
     {
 
     }
@@ -74,20 +74,7 @@ class ArticleController extends BaseController
 
     public function actionDelete($id)
     {
-        $model = Article::findOne([
-            'id' => $id,
-            'store_id' => $this->store->id,
-        ]);
-        if ($model) {
-            $model->is_delete = 1;
-            if (!$model->save()) {
-                $this->renderJson((new Model())->getModelError($model));
-            }
-        }
-        $this->renderJson([
-            'code' => 0,
-            'msg' => '删除成功',
-        ]);
+
     }
 
 }
