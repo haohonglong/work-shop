@@ -19,8 +19,7 @@ class EyeCardForm extends Model
     public function rules()
     {
         return [
-            [['title', 'day'], 'required'],
-            [['day'], 'integer'],
+            [['title'], 'required'],
             [['title'], 'string', 'max' => 50],
         ];
     }
@@ -30,7 +29,6 @@ class EyeCardForm extends Model
         if($this->validate()){
             $model = new EyeCard();
             $model->title = $this->title;
-            $model->day = $this->day;
             if($model->save()){
                 return true;
             }
@@ -45,7 +43,6 @@ class EyeCardForm extends Model
             $model = EyeCard::getById($this->id);
             if($model){
                 $model->title = $this->title;
-                $model->day = $this->day;
                 if($model->save()){
                     return true;
                 }
@@ -66,7 +63,6 @@ class EyeCardForm extends Model
         return [
             'id' => 'ID',
             'title' => '名称',
-            'day' => '天数',
         ];
     }
 }

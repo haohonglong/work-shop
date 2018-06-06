@@ -12,8 +12,6 @@ $this->title = '眼睛卡片';
             <tr>
                 <th>ID</th>
                 <th>名称</th>
-                <th>天数</th>
-                <td>状态</td>
                 <td>操作</td>
             </tr>
             </thead>
@@ -21,8 +19,6 @@ $this->title = '眼睛卡片';
                 <tr>
                     <td><?= $item['id'] ?></td>
                     <td><?= $item['title'] ?></td>
-                    <td><?= $item['day'] ?></td>
-                    <td><?= 1 == $item['status'] ? '已选' : '未选' ?></td>
                     <td>
                         <a class="btn btn-primary auto-form-btn" href="<?=Url::to(['edit','id'=>$item['id']]);?>">编辑</a>
                         <a class="btn btn-primary auto-form-btn" href="<?=Url::to(['del','id'=>$item['id']]);?>">删除</a>

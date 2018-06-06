@@ -120,6 +120,9 @@ INSERT INTO `eye_card` VALUES
    PRIMARY KEY (`id`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='记录打卡次数';
 
+ ALTER TABLE `ushop_eye_record_log`
+ADD CONSTRAINT `fk_1` FOREIGN KEY (`eye_card_id`) REFERENCES `ushop_eye_card`(`id`);
+
 
  DROP TABLE IF EXISTS `eye_info`;
  CREATE TABLE `eye_info` (

@@ -12,7 +12,6 @@ $this->title = '添加眼睛卡';
         'options' => ['class' => 'form-horizontal'],
         ]) ?>
         <?= $form->field($model, 'title') ?>
-        <?= $form->field($model, 'day') ?>
 
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">

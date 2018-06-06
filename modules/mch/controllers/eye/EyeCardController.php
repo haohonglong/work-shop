@@ -19,7 +19,7 @@ class EyeCardController extends Controller
 {
     public function actionIndex()
     {
-        $query = EyeCard::find()->select('id,title,day,status')->from(EyeCard::tableName())->where(['is_del'=>0]);
+        $query = EyeCard::find()->select('id,title')->from(EyeCard::tableName());
 	    $count = $query->count();
 	    $pagination = new Pagination(['totalCount' => $count]);
 	
@@ -63,21 +63,7 @@ class EyeCardController extends Controller
         }
     }
 	
-	public function actionEditStatus()
-	{
-		$request = yii::$app->request;
-		$id = $request->post('id');
-		$status = $request->post('status');
-		$model = EyeCard::getById($id);
-		if($model){
-			if((1 == $status || 0 == $status)){
-				$model->status = $status;
-				if ($model->save()) {
-				}
-			}else{
-			}
-		}
-	}
+
     public function actionDel($id)
     {
         if(EyeCard::del($id)){

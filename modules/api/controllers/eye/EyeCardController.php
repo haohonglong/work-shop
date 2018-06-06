@@ -28,11 +28,9 @@ class EyeCardController extends BaseController
 
         $user_id = yii::$app->request->get('user_id');
         $data = (new Query())
-            ->select('c.title,r.create_at,c.id')
-            ->from(['u'=>User::tableName()])
-            ->innerJoin(['r'=>EyeRecordLog::tableName()],'r.user_id = u.id')
-            ->innerJoin(['c'=>EyeCard::tableName()],'r.eye_card_id = c.id')
-            ->where(['r.user_id'=>$user_id])
+            ->select('r.create_at,c.id,c.title')
+            ->from(['c'=>EyeCard::tableName()])
+            ->leftJoin(['r'=>EyeRecordLog::tableName()],'r.eye_card_id = c.id and r.user_id = :userID',[':userID'=>$user_id])
             ->all();
         if(!empty($data)){
             $arr=[];
@@ -47,10 +45,10 @@ class EyeCardController extends BaseController
                     ];
                 }
                 $arr[$v['id']]['time'][] = $v['create_at'];
-                if(Date::isCurentMonth($v['create_at'])){
+                if(isset($v['create_at']) && Date::isCurentMonth($v['create_at'])){
                     $arr[$v['id']]['day']++;
                 }
-                if(Date::isCurentDay($v['create_at'])){
+                if(isset($v['create_at']) && Date::isCurentDay($v['create_at'])){
                     $arr[$v['id']]['status'] = 1;
                 }
 
@@ -70,7 +68,6 @@ class EyeCardController extends BaseController
         $model = new EyeCardForm();
         $request = yii::$app->request;
         $model->title = $request->post('title');
-        $model->day = $request->post('day');
         if ($model->save()) {
             return Response::json(1,'成功');
         }
@@ -83,14 +80,16 @@ class EyeCardController extends BaseController
         $request = yii::$app->request;
         $model->id = $request->post('id');
         $model->title = $request->post('title');
-        $model->day = $request->post('day');
         if ($model->edit()) {
             return Response::json(1,'成功');
         }
 	    return Response::json(0,'失败');
     }
 
-
+    /**
+     * 记录打卡
+     * @return object
+     */
     public function actionRecord()
     {
         $request = yii::$app->request;
@@ -116,24 +115,7 @@ class EyeCardController extends BaseController
         return Response::json(0,'打卡失败');
     }
 
-	public function actionEditStatus()
-	{
-		$request = yii::$app->request;
-		$id = $request->post('id');
-		$status = $request->post('status');
-		$model = EyeCard::getById($id);
-		if($model){
-			if((1 == $status || 0 == $status)){
-				$model->status = $status;
-				if ($model->save()) {
-					return Response::json(1,'状态修改成功');
-				}
-			}else{
-				return Response::json(0,'status 参数不对');
-			}
-		}
-		return Response::json(0,'失败');
-	}
+
     public function actionDel()
     {
         $request = yii::$app->request;
