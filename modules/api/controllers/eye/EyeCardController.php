@@ -10,7 +10,6 @@ namespace app\modules\api\controllers\eye;
 
 use app\helper\Date;
 use app\models\EyeRecordLog;
-use app\models\User;
 use yii;
 use app\models\EyeCard;
 use app\models\EyeCardForm;
@@ -57,9 +56,9 @@ class EyeCardController extends BaseController
                 unset($v['time']);
             }
             $data = array_values($arr);;
-	        return Response::json(1,'成功',$data);
+	        return Response::json(1,'successfully',$data);
         }
-	    return Response::json(0,'失败');
+	    return Response::json(0,'fail');
     }
 
 
@@ -69,9 +68,9 @@ class EyeCardController extends BaseController
         $request = yii::$app->request;
         $model->title = $request->post('title');
         if ($model->save()) {
-            return Response::json(1,'成功');
+            return Response::json(1,'successfully');
         }
-	    return Response::json(0,'失败');
+	    return Response::json(0,'fail');
     }
 
     public function actionEdit()
@@ -81,9 +80,9 @@ class EyeCardController extends BaseController
         $model->id = $request->post('id');
         $model->title = $request->post('title');
         if ($model->edit()) {
-            return Response::json(1,'成功');
+            return Response::json(1,'successfully');
         }
-	    return Response::json(0,'失败');
+	    return Response::json(0,'fail');
     }
 
     /**

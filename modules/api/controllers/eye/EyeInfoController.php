@@ -28,16 +28,16 @@ class EyeInfoController extends BaseController
     public function actionIndex()
     {
     	$request = yii::$app->request;
-        $type = $request->post('type');
+        $type = $request->get('type');
         $data = (new Query())
-            ->select('u.id as user_id,u.sex,u.username,u.age,u.avatar_url,u.family_type')
+            ->select('u.id as user_id,u.sex,u.nickname,u.age,u.avatar_url,u.family_type')
             ->addSelect('e.*')
             ->from(User::tableName().' as u')
             ->innerJoin(EyeInfo::tableName().' as e','e.user_id = u.id')
             ->where(['e.is_del'=>0,'u.family_type'=>$type])
             ->all();
         if($data){
-            return Response::json(1,'成功',$data);
+            return Response::json(1,'successfully',$data);
         }
         return Response::json(0,'没有匹配的数据');
 
@@ -48,9 +48,9 @@ class EyeInfoController extends BaseController
         $request = yii::$app->request;
         $model = new EyeInfoForm();
         if ($model->load($request->post(),'') && $model->save()) {
-            return Response::json(1,'成功');
+            return Response::json(1,'successfully');
         }
-	    return Response::json(0,'失败');
+	    return Response::json(0,'fail');
     }
 
     public function actionTest()
@@ -78,9 +78,9 @@ class EyeInfoController extends BaseController
         if($id){
             $model = new EyeInfoForm();
             if ($model->load($request->post(),'') && $model->edit($id)) {
-                return Response::json(1,'成功');
+                return Response::json(1,'successfully');
             }
-            return Response::json(0,'失败');
+            return Response::json(0,'fail');
         }
         return Response::json('0','没有对应id 信息');
 
@@ -91,9 +91,9 @@ class EyeInfoController extends BaseController
         $request = yii::$app->request;
         $id = $request->post('id');
         if(EyeInfo::del($id)){
-	        return Response::json(1,'成功');
+	        return Response::json(1,'successfully');
         }
-	    return Response::json(0,'失败');
+	    return Response::json(0,'fail');
     }
 
     /**
@@ -138,7 +138,7 @@ class EyeInfoController extends BaseController
 
             return Response::json(1,'',$arr);
         }
-        return Response::json(0,'数据获取失败');
+        return Response::json(0,'数据获取fail');
 
     }
 
@@ -158,7 +158,7 @@ class EyeInfoController extends BaseController
             }
             return Response::json(1,'',$arr);
         }
-        return Response::json(0,'数据获取失败');
+        return Response::json(0,'数据获取fail');
     }
 
     /**

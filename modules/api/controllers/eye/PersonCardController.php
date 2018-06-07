@@ -54,7 +54,7 @@ class PersonCardController extends BaseController
     function actionDel()
     {
         $request = yii::$app->request;
-        $id = $request->post('id');
+        $id = $request->get('id');
         if(PersonCard::del($id)){
 	        return Response::json(1,'successfully');
         }

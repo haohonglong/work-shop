@@ -6,7 +6,7 @@
 DROP TABLE IF EXISTS `family`;
 CREATE TABLE `family` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` char(10) NOT NULL,
+  `username` varchar (128) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='家庭表';
 
@@ -16,24 +16,28 @@ CREATE TABLE `family` (
    (null,'王五家'),
    (null,'张三家');
 
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `ushop_eye_user`;
+CREATE TABLE `ushop_eye_user` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
-  `sex` TINYINT(1)  DEFAULT 1 COMMENT '1:男，2:女',
-  `type` TINYINT(1) DEFAULT 1 COMMENT '成员特征：1:家长，2：学生，3：老人',
+  `gender` char(1) NOT NULL COMMENT '用户的性别，值为1时是男性，值为2时是女性，值为0时是未知',
+  `family_type` char(1) DEFAULT 1 COMMENT '成员特征：1:家长，2：学生，3：老人',
   `password` varchar(255) NOT NULL,
   `authKey` varchar(255) NOT NULL,
   `accessToken` varchar(255) NOT NULL,
-  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
-  `is_delete` TINYINT(1) NOT NULL DEFAULT '0',
+  `wechat_open_id` varchar(255) NOT NULL DEFAULT '' COMMENT '微信openid',
+  `wechat_union_id` varchar(255) NOT NULL DEFAULT '' COMMENT '微信用户union id',
   `nickname` varchar(255) NOT NULL DEFAULT '' COMMENT '昵称',
   `age` tinyint(3) unsigned NOT NULL,
-  `avatar_url` longtext NOT NULL COMMENT '头像url',
-  `f_id` int(11) NOT NULL,
+  `patient_age` char(3) NOT NULL DEFAULT '0' COMMENT '患龄',
+  `avatarUrl` longtext NOT NULL COMMENT '头像url',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '创建日期',
+  `edittime` int(11) NOT NULL DEFAULT '0' COMMENT '修改日期',
+  `family_id` int(11) unsigned DEFAULT '0' COMMENT '成员属于哪个家庭的',
+  `is_delete` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户';
- INSERT INTO `user` VALUES
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='眼睛用户';
+ INSERT INTO `ushop_eye_user` VALUES
    (null,'李明',1,1,'$2y$13$PeYpzXZJEQCG8ThP.BAYoerQHEbKVjQh3Vfx6gEpU7cKOIdR2.Sma','343&&&fd','rqerewrqew####',NOW(),0,'小李',15,'dsfadsfads',1),
    (null,'张慧',2,1,'$2y$13$PeYpzXZJEQCG8ThP.BAYoerQHEbKVjQh3Vfx6gEpU7cKOIdR2.Sma','343&&&fd','rqerewrqew####',NOW(),0,'小慧',15,'dsfadsfads',1),
    (null,'李老明',1,3,'$2y$13$PeYpzXZJEQCG8ThP.BAYoerQHEbKVjQh3Vfx6gEpU7cKOIdR2.Sma','343&&&fd','rqerewrqew####',NOW(),0,'老李',15,'dsfadsfads',1),
@@ -44,15 +48,23 @@ CREATE TABLE `user` (
 
 DROP TABLE IF EXISTS `ushop_eye_user`;
 CREATE TABLE `ushop_eye_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `family_type` tinyint(1) unsigned DEFAULT '1' COMMENT '家庭成员特征：1:家长，2：学生，3：老人',
-  `sex` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '1:男，0:女',
-  `age` tinyint(3) unsigned DEFAULT NULL,
-  `patient_age` tinyint(3) unsigned DEFAULT NULL COMMENT '患者的年龄',
-  `user_id` int(11) unsigned DEFAULT '0' COMMENT '',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `gender` char(1) NOT NULL COMMENT '用户的性别，值为1时是男性，值为2时是女性，值为0时是未知',
+  `family_type` char(1) DEFAULT 1 COMMENT '成员特征：1:家长，2：学生，3：老人',
+  `password` varchar(255) NOT NULL,
+  `authKey` varchar(255) NOT NULL,
+  `accessToken` varchar(255) NOT NULL,
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '创建日期',
+  `edittime` int(11) NOT NULL DEFAULT '0' COMMENT '修改日期',
+  `nickname` varchar(255) NOT NULL DEFAULT '' COMMENT '昵称',
+  `age` tinyint(3) unsigned NOT NULL,
+  `patient_age` char(3) NOT NULL DEFAULT '0' COMMENT '患龄',
+  `avatarUrl` longtext NOT NULL COMMENT '头像url',
   `family_id` int(11) unsigned DEFAULT '0' COMMENT '成员属于哪个家庭的',
+  `is_delete` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='眼睛客户附加信息';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='眼睛用户';
 
 DROP TABLE IF EXISTS `ushop_eye_user_with_article`;
 CREATE TABLE `ushop_eye_user_with_article` (
