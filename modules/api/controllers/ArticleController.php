@@ -36,12 +36,11 @@ class ArticleController extends BaseController
         $model->content = $content;
         $model->addtime = time();
         if($model->save()){
-            $id = $model->attributes['id'];
             //添加的时候同时添加到关联表里
             $relation = new EyeUserWithRelation();
             $relation->type = 1;
             $relation->user_id = $user_id;
-            $relation->relation_id = $id;
+            $relation->relation_id = $model->id;
             if(!EyeUserWithRelation::has_one($relation) && $relation->save()){
 
             }
