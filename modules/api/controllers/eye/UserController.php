@@ -13,19 +13,15 @@ use app\models\WechatApp;
 use yii;
 use app\helper\Response;
 use app\models\EyeUser;
-use app\modules\api\models\LoginForm;
+use app\modules\api\models\LoginWeChat;
 
 class UserController extends BaseController
 {
 
     public function actionLogin()
     {
-        $model = new LoginForm();
+        $model = new LoginWeChat();
         if ($model->load(\Yii::$app->request->post(),'')) {
-//            $model->user_info = 'test';
-//            $model->iv = 'ZmRha2luZWw7aW5qYWpkag==';
-//            $model->signature = Helper::getrandomstring(24);
-//            $model->encrypted_data = Helper::getrandomstring(24);
             $model->wechat_app = WechatApp::findOne(2);
 
             $data = $model->login();
