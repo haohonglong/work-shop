@@ -125,6 +125,7 @@ CREATE TABLE `ushop_article` (
   `is_delete` smallint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统文章';
+ALTER TABLE ushop_article ADD `pic_url` longtext COMMENT '缩略图';
 
 LOCK TABLES `ushop_article` WRITE;
 /*!40000 ALTER TABLE `ushop_article` DISABLE KEYS */;
