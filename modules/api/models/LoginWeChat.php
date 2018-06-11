@@ -86,7 +86,7 @@ class LoginWeChat extends Model
 
 
             return [
-                'code' => 0,
+                'code' => 1,
                 'msg' => 'success',
                 'data' => (object)[
                     'access_token' => $user->access_token,
@@ -100,7 +100,7 @@ class LoginWeChat extends Model
             ];
         } else {
             return [
-                'code' => 1,
+                'code' => 0,
                 'msg' => '登录失败',
             ];
         }
