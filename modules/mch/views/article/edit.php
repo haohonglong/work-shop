@@ -7,6 +7,7 @@
 $cat = [
     1 => '关于我们',
     2 => '服务中心',
+    3 => '眼睛建议',
 ];
 $cat_id = Yii::$app->request->get('cat_id', 2);
 $urlManager = Yii::$app->urlManager;
@@ -25,6 +26,12 @@ $this->params['page_navs'] = [
         'active' => $cat_id == 2,
         'url' => $urlManager->createUrl(['mch/article/index', 'cat_id' => 2,]),
     ],
+    [
+        'name' => '眼睛建议',
+        'active' => $cat_id == 3,
+        'url' => $urlManager->createUrl(['mch/article/index', 'cat_id' => 3,]),
+    ],
+
 ];
 ?>
 
