@@ -16,64 +16,72 @@ use app\modules\mch\models\Model;
 
 class ArticleController extends BaseController
 {
-    public function actionIndex()
+    /**
+     * @author lhh
+     * 创建日期：2018-06-11
+     * 修改日期：2018-06-11
+     * 名称：actionList
+     * 功能：优瞳文章
+     * 说明：
+     * 注意：
+     * @param int $cat_id
+     * @return object
+     */
+    public function actionList($cat_id = 4)
     {
-
+        $list = Article::find()->select('id,title,content,addtime,pic_url')->where([
+            'article_cat_id' => $cat_id,
+            'is_delete' => 0,
+        ])->orderBy('sort ASC,addtime DESC')->all();
+        $arr = [];
+        foreach ($list as $v){
+            $arr[]=[
+              'id'=>$v['id'],
+              'title'=>$v['title'],
+              'content'=>$v['content'],
+              'pic_url'=>$v['pic_url'],
+              'time'=>date("Y-m-d H:i:s", $v['addtime']),
+            ];
+        }
+        $list = $arr;
+        if (!empty($list) && 4 == $cat_id) {
+            return Response::json(1,'successfully',$list);
+        }
+        return Response::json(0,'fail');
     }
 
     /**
-     *
+     * @author lhh
+     * 创建日期：2018-06-11
+     * 修改日期：2018-06-11
+     * 名称：actionDetail
+     * 功能：
+     * 说明：
+     * 注意：
+     * @param int $id
      * @return object
      */
-    public function actionAdd()
+    public function actionDetail($id = 1)
     {
-        $request = yii::$app->request;
-        $title = $request->post('title');
-        $user_id = $request->post('user_id');
-        $content = $request->post('content');
-        $model = new Article();
-        $model->title = $title;
-        $model->content = $content;
-        $model->addtime = time();
-        if($model->save()){
-            //添加的时候同时添加到关联表里
-            $relation = new EyeUserWithRelation();
-            $relation->type = 1;
-            $relation->user_id = $user_id;
-            $relation->relation_id = $model->id;
-            if(!EyeUserWithRelation::has_one($relation) && $relation->save()){
+        $article = Article::find()->select('id,title,content,addtime,pic_url')->where([
+            'id' => $id,
+            'is_delete' => 0,
+        ])->one();
+        $arr=[
+            'id'=>$article['id'],
+            'title'=>$article['title'],
+            'content'=>$article['content'],
+            'pic_url'=>$article['pic_url'],
+            'time'=>date("Y-m-d H:i:s", $article['addtime']),
+        ];
+        $article = $arr;
 
-            }
-            return Response::json(1,'successfully');
+        if (!empty($article)) {
+            return Response::json(1,'successfully',$article);
         }
-        return Response::json(0,'保存失败');
-
+        return Response::json(0,'fail');
     }
 
-    public function actionEdit()
-    {
-        $request = yii::$app->request;
-        $id = $request->post('id');
-        $title = $request->post('title');
-        $content = $request->post('content');
-        $model = Article::findOne($id);
-        if($model){
-            $model->title = $title;
-            $model->content = $content;
-            if($model->save()){
-                return Response::json(1,'successfully');
-            }
-            return Response::json(0,'修改失败');
-        }else{
-            return Response::json(0,'没有相对应的id 数据');
-        }
 
-
-    }
-
-    public function actionDelete($id)
-    {
-
-    }
 
 }
