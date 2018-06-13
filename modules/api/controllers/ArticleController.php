@@ -136,15 +136,20 @@ class ArticleController extends BaseController
     {
         $requery = yii::$app->request;
         $userid = $requery->post('userid');
-        $article_id = $requery->post('article_id');
+        $id = $requery->post('id');
         $user = User::find()->where(['id'=>$userid])->limit(1)->one();
         if($user){
-            $favorite = ArticleFavorite::find()->where(['userid'=>$userid,'article_id'=>$article_id])->one();
+            $favorite = ArticleFavorite::find()->where(['id'=>$id])->limit(1)->one();
             if($favorite){
-                $favorite->delete();
-                return Response::json(1,'您已取消了这篇文章的收藏');
+                if($favorite->userid != $userid){
+                    return Response::json(0,'你不能取消被人的收藏');
+                }else{
+                    $favorite->delete();
+                    return Response::json(1,'您已取消了这篇文章的收藏');
+                }
+
             }else{
-                return Response::json(0,'没有这篇文章');
+                return Response::json(0,'没有这个id');
             }
         }
         return Response::json(0,'没有这个用户');
