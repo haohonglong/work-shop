@@ -225,8 +225,19 @@ INSERT INTO `ushop_world_person` VALUES
 ('1000', '5000');
 
 
+
+DROP TABLE IF EXISTS `ushop_article_favorite`;
+CREATE TABLE `ushop_article_favorite` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `article_id` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章收藏';
+
 -- 根据type 获取 文章或视频的相关信息
 select u.id as user_id,a.id,a.title,a.content,a.addtime as create_time,r.type,r.relation_id from `ushop_user` as u
   LEFT JOIN `ushop_eye_user_with_relation` as r on r.user_id = u.id
   LEFT JOIN `ushop_article` as a on r.relation_id = a.id and r.type = 1
 where r.type = 1 and r.relation_id = 1 and u.id and a.is_delete = 0;
+
+

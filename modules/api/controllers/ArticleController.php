@@ -8,7 +8,9 @@
 namespace app\modules\api\controllers;
 
 use app\helper\Response;
+use app\models\ArticleFavorite;
 use app\models\EyeUserWithRelation;
+use app\models\User;
 use app\modules\api\controllers\eye\BaseController;
 use yii;
 use app\models\Article;
@@ -81,6 +83,105 @@ class ArticleController extends BaseController
         }
         return Response::json(0,'fail');
     }
+
+    /**
+     * @author lhh
+     * 创建日期：2018-06-13
+     * 修改日期：2018-06-13
+     * 名称：actionAddFavorite
+     * 功能：收藏文章
+     * 说明：
+     * 注意：
+     * @return object
+     */
+    public function actionAddFavorite()
+    {
+        $requery = yii::$app->request;
+        $userid = $requery->post('userid');
+        $article_id = $requery->post('article_id');
+        $user = User::find()->where(['id'=>$userid])->limit(1)->one();
+        if($user){
+            $article = Article::find()->where(['id'=>$article_id])->limit(1)->one();
+            if($article){
+                $favorite = ArticleFavorite::find()->where(['userid'=>$userid,'article_id'=>$article_id])->one();
+                if(!$favorite){
+                    $favorite = new ArticleFavorite();
+                    $favorite->article_id = $article_id;
+                    $favorite->userid = $userid;
+                    $favorite->save();
+                    return Response::json(1,'文章收藏成功');
+                }else{
+                    return Response::json(0,'此篇文章之前已被收藏');
+                }
+            }else{
+                return Response::json(0,'没有这篇文章');
+            }
+        }
+        return Response::json(0,'没有这个用户');
+    }
+
+    /**
+     * @author lhh
+     * 创建日期：2018-06-13
+     * 修改日期：2018-06-13
+     * 名称：actionDelFavorite
+     * 功能：取消文章收藏
+     * 说明：
+     * 注意：
+     * @return object
+     * @throws \Throwable
+     * @throws yii\db\StaleObjectException
+     */
+    public function actionDelFavorite()
+    {
+        $requery = yii::$app->request;
+        $userid = $requery->post('userid');
+        $article_id = $requery->post('article_id');
+        $user = User::find()->where(['id'=>$userid])->limit(1)->one();
+        if($user){
+            $favorite = ArticleFavorite::find()->where(['userid'=>$userid,'article_id'=>$article_id])->one();
+            if($favorite){
+                $favorite->delete();
+                return Response::json(1,'您已取消了这篇文章的收藏');
+            }else{
+                return Response::json(0,'没有这篇文章');
+            }
+        }
+        return Response::json(0,'没有这个用户');
+    }
+
+    /**
+     * @author lhh
+     * 创建日期：2018-06-13
+     * 修改日期：2018-06-13
+     * 名称：actionShowFavorite
+     * 功能：显示用户收藏的所有文章
+     * 说明：
+     * 注意：
+     * @param null $userid
+     * @return object
+     */
+    public function actionShowFavorite($userid=null)
+    {
+        $user = User::find()->where(['id'=>$userid])->limit(1)->one();
+        if($user){
+            $favorite = (new yii\db\Query())->from(['u'=>User::tableName()])
+                ->leftJoin(['af'=>ArticleFavorite::tableName()],'af.userid = u.id')
+                ->leftJoin(['a'=>Article::tableName()],'af.article_id = a.id')
+                ->where(['af.userid'=>$userid])
+                ->all();
+            if($favorite){
+                return Response::json(1,'successfully',$favorite);
+            }else{
+                return Response::json(0,'没有这篇文章');
+            }
+        }
+        return Response::json(0,'没有这个用户');
+    }
+
+
+
+
 
 
 
