@@ -10,6 +10,7 @@ namespace app\modules\mch\controllers\eye;
 
 use app\helper\Response;
 use app\models\EyeInfoForm;
+use app\models\EyeUser;
 use app\modules\mch\controllers\Controller;
 
 use app\models\User;
@@ -29,10 +30,12 @@ class EyeInfoController extends Controller
 	    $request = yii::$app->request;
 	    $type = $request->get('type');
 	    $query = User::find()
-		    ->select('u.id as user_id,u.sex,u.username,u.age,u.avatar_url,u.family_type,e.degrees')
+		    ->select('u.id as user_id,u.gender,u.username,eu.age,u.avatar_url,e.degrees')
 		    ->addSelect('e.*')
 		    ->from(User::tableName().' as u')
 		    ->innerJoin(EyeInfo::tableName().' as e','e.user_id = u.id')
+		    ->leftJoin(EyeUser::tableName().' as eu','eu.userid = u.id')
+            ->orderBy('e.id DESC')
 		    ->where(['e.is_del'=>0]);
 	    if($type){
 	        $query->andWhere(['u.family_type'=>$type]);

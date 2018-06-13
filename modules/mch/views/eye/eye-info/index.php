@@ -37,7 +37,11 @@ $this->title = '眼睛信息';
 			<?php endforeach; ?>
         </table>
         <div class="text-center">
-			<?= \yii\widgets\LinkPager::widget(['pagination' => $pagination]) ?>
+			<?= \yii\widgets\LinkPager::widget([
+			        'pagination' => $pagination,
+			        'firstPageLabel' => '首页',
+			        'lastPageLabel' => '尾页',
+            ]) ?>
             <div class="text-muted"><?= count($data); ?>条数据</div>
         </div>
     </div>
