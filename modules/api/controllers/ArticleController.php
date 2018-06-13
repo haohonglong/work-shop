@@ -38,7 +38,7 @@ class ArticleController extends BaseController
             $arr[]=[
               'id'=>$v['id'],
               'title'=>$v['title'],
-              'content'=>$v['content'],
+              'content'=>yii\helpers\Html::decode($v['content']),
               'pic_url'=>$v['pic_url'],
               'time'=>date("Y-m-d H:i:s", $v['addtime']),
             ];
@@ -70,7 +70,7 @@ class ArticleController extends BaseController
         $arr=[
             'id'=>$article['id'],
             'title'=>$article['title'],
-            'content'=>$article['content'],
+            'content'=>yii\helpers\Html::decode($article['content']),
             'pic_url'=>$article['pic_url'],
             'time'=>date("Y-m-d H:i:s", $article['addtime']),
         ];

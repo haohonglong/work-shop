@@ -1,7 +1,7 @@
 <?php
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
-$this->title = '修改家庭';
+$this->title = '家庭';
 ?>
 
 <div class="panel mb-3">
@@ -11,11 +11,12 @@ $this->title = '修改家庭';
             'id' => 'login-form',
             'options' => ['class' => 'form-horizontal'],
         ]) ?>
+        <?= '修改' == $title ? $model->id :$form->field($model, 'id'); ?>
         <?= $form->field($model, 'name') ?>
 
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::submitButton('修改', ['class' => 'btn btn-primary']) ?>
+                <?= Html::submitButton('保存', ['class' => 'btn btn-primary']) ?>
             </div>
         </div>
         <?php ActiveForm::end() ?>

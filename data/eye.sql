@@ -3,18 +3,14 @@
  CREATE DATABASE IF NOT EXISTS `eye_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
  USE `eye_db`;
 
-DROP TABLE IF EXISTS `family`;
-CREATE TABLE `family` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar (128) NOT NULL,
+DROP TABLE IF EXISTS `ushop_family`;
+CREATE TABLE `ushop_family` (
+  `id` varchar (16) NOT NULL COMMENT '手机号',
+  `name` varchar (255),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='家庭表';
 
- INSERT INTO `family` VALUES
-   (null,'李四家'),
-   (null,'赵刘家'),
-   (null,'王五家'),
-   (null,'张三家');
+
 
 CREATE TABLE `ushop_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -62,9 +58,9 @@ CREATE TABLE `ushop_eye_user` (
   `how_long` tinyint(2) NOT NULL DEFAULT '0' COMMENT '近视多久',
   `creat_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
   `modify_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
-  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户,0：被登录用户创建的，不是登录者本人',
   `pc_id` int(11) COMMENT '家庭卡包-person_card',
-  `f_id` int(11) COMMENT '家庭',
+  `f_id` varchar (16) COMMENT '家庭',
   `is_delete` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='眼睛用户';

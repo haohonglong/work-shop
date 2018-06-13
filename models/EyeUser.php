@@ -15,7 +15,7 @@ use Yii;
  * @property string $modify_at
  * @property int $userid 用户
  * @property int $pc_id 家庭卡包-person_card
- * @property int $f_id 家庭
+ * @property string $f_id 家庭
  * @property int $is_delete
  */
 class EyeUser extends \yii\db\ActiveRecord
@@ -34,9 +34,10 @@ class EyeUser extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['age', 'how_long', 'userid', 'pc_id', 'f_id', 'is_delete'], 'integer'],
+            [['age', 'how_long', 'userid', 'pc_id', 'is_delete'], 'integer'],
             [['creat_at', 'modify_at'], 'safe'],
             [['name'], 'string', 'max' => 255],
+            [['f_id'], 'string', 'max' => 16],
         ];
     }
 

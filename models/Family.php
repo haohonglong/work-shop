@@ -5,9 +5,9 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "ushop_family".
+ * This is the model class for table "{{%family}}".
  *
- * @property int $id
+ * @property string $id 手机号
  * @property string $name
  */
 class Family extends \yii\db\ActiveRecord
@@ -26,14 +26,11 @@ class Family extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['name'], 'string', 'max' => 10],
+            [['id'], 'required'],
+            [['id'], 'string', 'max' => 16,'min'=>11],
+            [['name'], 'string', 'max' => 255],
+            [['id'], 'unique'],
         ];
-    }
-
-    public static function getById($id)
-    {
-        return self::find()->where(['id'=>$id])->limit(1)->one();
     }
 
     /**
@@ -42,8 +39,8 @@ class Family extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => '名称',
+            'id' => '手机号',
+            'name' => '备注说明',
         ];
     }
 }

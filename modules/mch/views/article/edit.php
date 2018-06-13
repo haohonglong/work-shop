@@ -109,7 +109,7 @@ $this->params['page_navs'] = [
                 </div>
                 <div class="col-sm-6">
                         <textarea id="editor" style="width: 100%"
-                                  name="content"><?= $model->content ?></textarea>
+                                  name="content"><?= \yii\helpers\Html::decode($model->content); ?></textarea>
                 </div>
             </div>
             <div class="form-group row">

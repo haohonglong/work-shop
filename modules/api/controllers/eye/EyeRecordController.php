@@ -15,9 +15,9 @@ class EyeRecordController extends BaseController
     {
         $data = (new Query())->select('*')->from(EyeRecord::tableName())->where(['is_del'=>0])->all();
 	    if($data){
-		    return Response::json(1,'成功',$data);
+		    return Response::json(1,'successfully',$data);
 	    }
-	    return Response::json(0,'成功',$data);
+	    return Response::json(0,'fail',$data);
     }
 
     public function actionAdd()
@@ -33,9 +33,9 @@ class EyeRecordController extends BaseController
         $date = $request->post('date');
         if($date){$model->date = $date;}
         if ($model->validate() && $model->save()) {
-	        return Response::json(1,'成功');
+	        return Response::json(1,'successfully');
         }
-	    return Response::json(0,'失败');
+	    return Response::json(0,'fail');
     }
 
     public function actionEdit()
@@ -49,9 +49,9 @@ class EyeRecordController extends BaseController
         $model->feel = $request->post('feel');
         $model->tip = $request->post('tip');
         if ($model->edit()) {
-            return Response::json(1,'成功');
+            return Response::json(1,'successfully');
         }
-	    return Response::json(0,'修改失败');
+	    return Response::json(0,'fail');
 
     }
 
@@ -60,9 +60,9 @@ class EyeRecordController extends BaseController
         $request = yii::$app->request;
         $id = $request->post('id');
         if(EyeRecord::del($id)){
-	        return Response::json(1,'成功');
+	        return Response::json(1,'successfully');
         }
-	    return Response::json(0,'失败');
+	    return Response::json(0,'fail');
     }
 
 

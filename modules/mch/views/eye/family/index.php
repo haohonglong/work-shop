@@ -8,7 +8,7 @@ $this->title = '家庭';
 <div class="panel mb-3">
     <div class="panel-header"><?= $this->title ?></div>
     <div class="panel-body">
-        <div class="text-right"><a class="btn btn-primary mb-3" href="<?=Url::to(['add']);?>">添加</a></div>
+        <div class="text-right"><a class="btn btn-primary mb-3" href="<?=Url::to(['edit']);?>">添加</a></div>
         <table class="table table-bordered bg-white">
             <thead>
             <tr>

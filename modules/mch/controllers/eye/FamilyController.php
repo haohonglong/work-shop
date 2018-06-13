@@ -31,31 +31,23 @@ class FamilyController extends Controller
         return $this->render('index',$var);
     }
 
-    public function actionAdd()
+
+    public function actionEdit($id=null)
     {
-        $model = new Family();
         $request = yii::$app->request;
+        $model = Family::find()->where(['id'=>$id])->limit(1)->one();
+        $title = "修改";
+        if(!$model){
+            $title = "添加";
+            $model = new Family();
+
+        }
         if ($model->load($request->post()) && $model->save()) {
             return $this->redirect(['index']);
         }
-        $var =[
-            'model'=>$model
-        ];
-        return $this->render('add',$var);
-
-    }
-    public function actionEdit($id)
-    {
-        $request = yii::$app->request;
-        $model = Family::getById($id);
-        if($model){
-            if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['index']);
-            }
-            $var =[
-                'model'=>$model
-            ];
-            return $this->render('edit',$var);
-        }
+        return $this->render('edit',[
+            'model'=>$model,
+            'title'=>$title,
+        ]);
     }
 }

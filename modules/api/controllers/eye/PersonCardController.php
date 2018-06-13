@@ -30,8 +30,6 @@ class PersonCardController extends BaseController
         $model = new PersonCardForm();
         $request = yii::$app->request;
         $model->title = $request->post('title');
-        $model->user_id = $request->post('user_id');
-        $model->f_id = $request->post('f_id');
         $model->tip = $request->post('tip');
         $model->type = $request->post('type');
         if ($model->save()) {
