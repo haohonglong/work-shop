@@ -15,11 +15,9 @@ use yii\base\Model;
 class PersonCardForm extends Model
 {
     public $id;
-    public $f_id;
     public $title;
     public $tip;
     public $type;
-    public $user_id;
 
     /**
      * {@inheritdoc}
@@ -27,8 +25,8 @@ class PersonCardForm extends Model
     public function rules()
     {
         return [
-            [['title', 'tip', 'f_id','user_id'], 'required'],
-            [['f_id', 'type','user_id'], 'integer'],
+            [['title', 'tip'], 'required'],
+            [['type'], 'integer'],
             [['title'], 'string', 'max' => 20],
             [['tip'], 'string', 'max' => 128],
         ];
@@ -38,10 +36,8 @@ class PersonCardForm extends Model
     {
         if($this->validate()){
             $model = new PersonCard();
-            $model->f_id = $this->f_id;
             $model->title = $this->title;
             $model->tip = $this->tip;
-            $model->user_id = $this->user_id;
             $model->type = $this->type;
             if($model->save()){
                 return true;
@@ -73,8 +69,6 @@ class PersonCardForm extends Model
         return [
             'title' => '名称',
             'tip' => '小提示',
-            'f_id' => '家庭',
-            'user_id' => '用户id',
             'type' => '卡的类型',
         ];
     }

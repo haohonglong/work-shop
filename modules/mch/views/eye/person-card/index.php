@@ -1,6 +1,6 @@
 <?php
 use yii\helpers\Url;
-$this->title = '人员卡';
+$this->title = '人员卡包信息';
 ?>
 
 <div class="panel mb-3">

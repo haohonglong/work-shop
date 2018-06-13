@@ -86,24 +86,21 @@ CREATE TABLE `ushop_map_location` (
 
 
 
-DROP TABLE IF EXISTS `person_card`;
-CREATE TABLE `person_card` (
+DROP TABLE IF EXISTS `ushop_person_card`;
+CREATE TABLE `ushop_person_card` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `title` CHAR(20)  NOT NULL COMMENT '',
-  `tip` VARCHAR(128)  NOT NULL COMMENT '',
-  `f_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL DEFAULT 0  COMMENT '',
+  `title` VARCHAR(20)  NOT NULL COMMENT '',
+  `tip`   VARCHAR(128)  NOT NULL COMMENT '',
   `type` TINYINT(1) NOT NULL DEFAULT 1 COMMENT '卡的类型：1:家长，2：学生，3：老人',
   `is_del` TINYINT(1)  DEFAULT 0 COMMENT '1:删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='';
-ALTER TABLE person_card ADD `user_id` int(11) NOT NULL DEFAULT 0  COMMENT '' AFTER `f_id`;
 
 INSERT INTO `person_card` VALUES
-(null,'老人','护眼小卡片',1,1,3,0),
-(null,'家长','护眼小卡片',2,1,1,0),
-(null,'学生','护眼小卡片',3,1,2,0),
-(null,'老人','护眼小卡片',1,1,3,0);
+(null,'老人','护眼小卡片',3,0),
+(null,'家长','护眼小卡片',1,0),
+(null,'学生','护眼小卡片',2,0),
+(null,'老人','护眼小卡片',3,0);
 
 DROP TABLE IF EXISTS `eye_card`;
 CREATE TABLE `eye_card` (
