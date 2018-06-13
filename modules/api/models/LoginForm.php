@@ -7,7 +7,8 @@
 
 namespace app\modules\api\models;
 
-
+use yii;
+use app\models\EyeUser;
 use app\models\Setting;
 use app\models\Share;
 use app\models\User;
@@ -31,6 +32,19 @@ class LoginForm extends Model
         return [
             [['wechat_app', 'code', 'user_info', 'encrypted_data', 'iv', 'signature',], 'required'],
         ];
+    }
+
+    private function addEyeUser($user=null){
+        if(isset($user) && $user->id){
+            $model = new EyeUser();
+            $model->userid = $user->id;
+            $model->name = $user->nickname;
+            if($model->save()){
+                return true;
+            }
+        }
+        return false;
+
     }
 
     public function login()
@@ -63,11 +77,13 @@ class LoginForm extends Model
                 $user->is_delete = 0;
                 $user->wechat_open_id = $data['openId'];
                 $user->wechat_union_id = isset($data['unionId']) ? $data['unionId'] : '';
-                //$user->nickname = $data['nickName'];
+                $user->nickname = $data['nickName'];
+                $user->gender = $data['gender'];
                 $user->nickname = preg_replace('/[\xf0-\xf7].{3}/', '', $data['nickName']);
                 $user->avatar_url = $data['avatarUrl'];
                 $user->store_id = $this->store_id;
                 $user->save();
+                $this->addEyeUser($user);
                 $same_user = User::find()->select('id')->where([
                     'AND',
                     [
@@ -78,6 +94,7 @@ class LoginForm extends Model
                     ['<', 'id', $user->id],
                 ])->one();
                 if ($same_user) {
+                    yii::$app->db->createCommand('update '.EyeUser::tableName().' set is_delete = 1 where userid = :userid',[':userid'=>$user->id]);
                     $user->delete();
                     $user = null;
                     $user = $same_user;

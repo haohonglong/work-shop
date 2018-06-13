@@ -8,21 +8,14 @@ use Yii;
  * This is the model class for table "{{%eye_user}}".
  *
  * @property string $id
- * @property string $username
- * @property string $gender 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
- * @property string $family_type 成员特征：1:家长，2：学生，3：老人
- * @property string $password
- * @property string $authKey
- * @property string $accessToken
- * @property string $wechat_open_id 微信openid
- * @property string $wechat_union_id 微信用户union id
- * @property string $nickname 昵称
+ * @property string $name
  * @property int $age
- * @property string $patient_age 患龄
- * @property string $avatarUrl 头像url
- * @property int $addtime 创建日期
- * @property int $edittime 修改日期
- * @property string $family_id 成员属于哪个家庭的
+ * @property int $how_long 近视多久
+ * @property string $creat_at
+ * @property string $modify_at
+ * @property int $userid 用户
+ * @property int $pc_id 家庭卡包-person_card
+ * @property int $f_id 家庭
  * @property int $is_delete
  */
 class EyeUser extends \yii\db\ActiveRecord
@@ -41,12 +34,9 @@ class EyeUser extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'gender', 'password', 'authKey', 'accessToken', 'age', 'avatarUrl'], 'required'],
-            [['age', 'addtime', 'edittime', 'family_id', 'is_delete'], 'integer'],
-            [['avatarUrl'], 'string'],
-            [['username', 'password', 'authKey', 'accessToken', 'wechat_open_id', 'wechat_union_id', 'nickname'], 'string', 'max' => 255],
-            [['gender', 'family_type'], 'string', 'max' => 1],
-            [['patient_age'], 'string', 'max' => 3],
+            [['age', 'how_long', 'userid', 'pc_id', 'f_id', 'is_delete'], 'integer'],
+            [['creat_at', 'modify_at'], 'safe'],
+            [['name'], 'string', 'max' => 255],
         ];
     }
 
@@ -57,21 +47,14 @@ class EyeUser extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'username' => 'Username',
-            'gender' => 'Gender',
-            'family_type' => 'Family Type',
-            'password' => 'Password',
-            'authKey' => 'Auth Key',
-            'accessToken' => 'Access Token',
-            'wechat_open_id' => 'Wechat Open ID',
-            'wechat_union_id' => 'Wechat Union ID',
-            'nickname' => 'Nickname',
+            'name' => 'Name',
             'age' => 'Age',
-            'patient_age' => 'Patient Age',
-            'avatarUrl' => 'Avatar Url',
-            'addtime' => 'Addtime',
-            'edittime' => 'Edittime',
-            'family_id' => 'Family ID',
+            'how_long' => 'How Long',
+            'creat_at' => 'Creat At',
+            'modify_at' => 'Modify At',
+            'userid' => 'Userid',
+            'pc_id' => 'Pc ID',
+            'f_id' => 'F ID',
             'is_delete' => 'Is Delete',
         ];
     }
