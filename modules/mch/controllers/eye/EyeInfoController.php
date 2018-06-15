@@ -10,6 +10,8 @@ namespace app\modules\mch\controllers\eye;
 
 use app\helper\Response;
 use app\models\EyeInfoForm;
+use app\models\EyeOptometryList;
+use app\models\EyeOptometryListForm;
 use app\models\EyeUser;
 use app\modules\mch\controllers\Controller;
 
@@ -28,18 +30,16 @@ class EyeInfoController extends Controller
     public function actionIndex()
     {
 	    $request = yii::$app->request;
-	    $type = $request->get('type');
-	    $query = User::find()
-		    ->select('u.id as user_id,u.gender,u.username,eu.age,u.avatar_url,e.degrees')
+	    $query = EyeUser::find()
+            ->alias('eu')
+		    ->select('eu.*')
 		    ->addSelect('e.*')
-		    ->from(User::tableName().' as u')
-		    ->innerJoin(EyeInfo::tableName().' as e','e.user_id = u.id')
-		    ->leftJoin(EyeUser::tableName().' as eu','eu.userid = u.id')
+		    ->leftJoin(['e'=>EyeOptometryList::tableName()],'e.user_id = eu.id')
+		    ->leftJoin(['u'=>User::tableName()],'eu.userid = u.id')
             ->orderBy('e.id DESC')
-		    ->where(['e.is_del'=>0]);
-	    if($type){
-	        $query->andWhere(['u.family_type'=>$type]);
-        }
+		    ->where(['eu.is_delete'=>0]);
+
+
 		if($query){
 			$count = $query->count();
 			$pagination = new Pagination(['totalCount' => $count]);
@@ -48,6 +48,7 @@ class EyeInfoController extends Controller
 				->asArray()
 				->limit($pagination->limit)
 				->all();
+
 			$var =[
 				'data'=>$data,
 				'pagination'=>$pagination,
@@ -59,49 +60,30 @@ class EyeInfoController extends Controller
     }
 
 
-
-    public function actionAdd()
+    public function actionEdit($id=null)
     {
         $request = yii::$app->request;
-        $model = new EyeInfoForm();
-        if ($model->load($request->post()) && $model->save()) {
-            return $this->redirect(['count']);
+        $model = EyeOptometryListForm::getById($id);
+        if(!$model){
+            $model = new EyeOptometryList();
         }
-
-        $var =[
+        if($request->isPost){
+            $from = new EyeOptometryListForm();
+            $from->load($request->post(),'EyeOptometryList');
+            if ($from->save($id)) {
+                return $this->redirect(['index']);
+            }
+        }
+        return $this->render('edit',[
             'model'=>$model,
             'user_list'=>$this->getUsers(),
-        ];
-        return $this->render('add',$var);
+        ]);
     }
 
-    public function actionEdit($id)
+    public function actionDel($id=null)
     {
-        $request = yii::$app->request;
-        $model = EyeInfo::getById($id);
-        if($model){
-            if ($model->load($request->post())) {
-                $model->m_date = date('Y-m-d H:i:s');
-                if($model->save()){
-                    return $this->redirect(['count']);
-                }
-            }
-            $var =[
-                'model'=>$model,
-                'user_list'=>$this->getUsers(),
-            ];
-            return $this->render('edit',$var);
-        }
-    }
-
-    public function actionDel()
-    {
-        $request = yii::$app->request;
-        $id = $request->post('id');
-        if(EyeInfo::del($id)){
-	        return Response::json(1,'成功');
-        }
-	    return Response::json(0,'失败');
+        EyeOptometryListForm::del($id);
+        return $this->redirect(['index']);
     }
 
     /**

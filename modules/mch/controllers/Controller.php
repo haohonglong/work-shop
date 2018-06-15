@@ -7,6 +7,7 @@
 
 namespace app\modules\mch\controllers;
 
+use app\models\EyeUser;
 use app\models\User;
 use Yii;
 use app\models\Store;
@@ -136,8 +137,8 @@ class Controller extends \app\controllers\Controller
      */
     protected function getUsers()
     {
-        $data = (new Query())->select('id,nickname')->from(User::tableName())->all();
-        $data = yii\helpers\ArrayHelper::map($data, 'id', 'nickname');
+        $data = (new Query())->select('id,name')->from(EyeUser::tableName())->all();
+        $data = yii\helpers\ArrayHelper::map($data, 'id', 'name');
         return $data;
     }
 

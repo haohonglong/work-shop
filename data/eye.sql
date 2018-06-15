@@ -36,35 +36,39 @@ CREATE TABLE `ushop_user` (
   `level` int(11) DEFAULT '-1' COMMENT '会员等级',
   `integral` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户当前积分',
   `total_integral` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户总获得积分',
-  `family_type` tinyint(1) unsigned DEFAULT '1' COMMENT '家庭成员特征：1:家长，2：学生，3：老人',
-  `sex` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '1:男，0:女',
-  `family_id` int(11) unsigned DEFAULT '0' COMMENT '成员属于哪个家庭的',
-  `age` tinyint(3) unsigned DEFAULT NULL,
+  `gender` char(1) NOT NULL COMMENT '用户的性别，值为1时是男性，值为2时是女性，值为0时是未知',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='用户';
-ALTER TABLE `ushop_user` ADD `gender` char(1) NOT NULL COMMENT '用户的性别，值为1时是男性，值为2时是女性，值为0时是未知';
-ALTER TABLE `ushop_user`
-DROP COLUMN `sex`,
-DROP COLUMN `age`,
-DROP COLUMN `family_type`,
-DROP COLUMN `family_id`;
+
 
 
 DROP TABLE IF EXISTS `ushop_eye_user`;
 CREATE TABLE `ushop_eye_user` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255),
+  `name` varchar(255) COMMENT '患者真实姓名',
   `age` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `how_long` tinyint(2) NOT NULL DEFAULT '0' COMMENT '近视多久',
+  `ill_age` tinyint(2) NOT NULL DEFAULT '0' COMMENT '近视多久',
   `creat_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
   `modify_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户,0：被登录用户创建的，不是登录者本人',
+  `guardian` varchar (128) COMMENT '监护人',
+  `job` varchar (128) COMMENT '职业',
   `pc_id` int(11) COMMENT '家庭卡包-person_card',
-  `f_id` varchar (16) COMMENT '家庭',
+  `phone` varchar (16) COMMENT '电话号码',
+  `f_id` varchar (16) COMMENT '家庭号',
+  `f_type` tinyint(1) unsigned DEFAULT 0 COMMENT '家庭成员特征：1:家长，2：学生，3：老人',
   `is_delete` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='眼睛用户';
 
+DROP TABLE IF EXISTS `ushop_eye_user_vip`;
+CREATE TABLE `ushop_eye_user_vip` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `f_id` varchar (16) COMMENT '家庭号',
+  `type` TINYINT(1) NOT NULL DEFAULT 1 COMMENT '1：vip',
+  `is_delete` TINYINT(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='vip会员';
 
 
 
@@ -94,7 +98,7 @@ CREATE TABLE `ushop_person_card` (
   `title` VARCHAR(20)  NOT NULL COMMENT '',
   `tip`   VARCHAR(128)  NOT NULL COMMENT '',
   `type` TINYINT(1) NOT NULL DEFAULT 1 COMMENT '卡的类型：1:家长，2：学生，3：老人',
-  `is_del` TINYINT(1)  DEFAULT 0 COMMENT '1:删除',
+  `is_delete` TINYINT(1)  DEFAULT 0 COMMENT '1:删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='家庭卡包';
 
@@ -104,23 +108,21 @@ INSERT INTO `person_card` VALUES
 (null,'学生','护眼小卡片',2,0),
 (null,'老人','护眼小卡片',3,0);
 
-DROP TABLE IF EXISTS `eye_card`;
-CREATE TABLE `eye_card` (
+DROP TABLE IF EXISTS `ushop_eye_card`;
+CREATE TABLE `ushop_eye_card` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` CHAR(50)  NOT NULL COMMENT '',
-  `day` CHAR(3)  NOT NULL COMMENT '坚持天数',
-  `is_del` TINYINT(1)  DEFAULT 0 COMMENT '1:删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='';
 ALTER TABLE eye_card
 drop `day` ,
 drop `is_del` ;
 
-INSERT INTO `eye_card` VALUES
-(null,'每日打卡',5,0),
-(null,'眼部保健',5,0),
-(null,'眨眼锻炼',3,0),
-(null,'补充维生素A',5,0);
+INSERT INTO `ushop_eye_card` VALUES
+(null,'每日打卡'),
+(null,'眼部保健'),
+(null,'眨眼锻炼'),
+(null,'补充维生素A');
 
  DROP TABLE IF EXISTS `ushop_eye_record_log`;
  CREATE TABLE `ushop_eye_record_log` (
@@ -135,19 +137,49 @@ INSERT INTO `eye_card` VALUES
 ADD CONSTRAINT `fk_1` FOREIGN KEY (`eye_card_id`) REFERENCES `ushop_eye_card`(`id`);
 
 
- DROP TABLE IF EXISTS `eye_info`;
- CREATE TABLE `eye_info` (
+ DROP TABLE IF EXISTS `ushop_eye_info`;
+ CREATE TABLE `ushop_eye_info` (
    `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
    `num_R` CHAR(6)  DEFAULT '0' COMMENT '右眼度数',
    `num_L` CHAR(6)  DEFAULT '0' COMMENT '右眼度数',
    `num_RS` CHAR(6)  DEFAULT '0' COMMENT '右眼散光',
    `num_LS` CHAR(6)  DEFAULT '0' COMMENT '左眼散光',
-   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
+   `degrees` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '眼镜的度数',
+   `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
+   `modify_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
    `advice` text COMMENT '医生建议',
    `user_id` int(11) NOT NULL,
-   `is_del` TINYINT(1)  DEFAULT 0 COMMENT '1:删除',
+   `is_delete` TINYINT(1)  DEFAULT 0 COMMENT '1:删除',
    PRIMARY KEY (`id`)
- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='';
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='眼睛信息';
+
+ DROP TABLE IF EXISTS `ushop_eye_optometry_list`;
+ CREATE TABLE `ushop_eye_optometry_list` (
+   `id`    int(11) unsigned NOT NULL AUTO_INCREMENT,
+   `VD`   varchar (25)  DEFAULT '0' COMMENT '镜眼距,单位mm',
+   `DSL`  varchar (25)  DEFAULT '0' COMMENT '左球面镜',
+   `DSR`  varchar (25)  DEFAULT '0' COMMENT '右球面镜',
+   `DCL`  varchar (25)  DEFAULT '0' COMMENT '左圆柱镜',
+   `DCR`  varchar (25)  DEFAULT '0' COMMENT '右圆柱镜',
+   `PDL`  varchar (25)  DEFAULT '0' COMMENT '左瞳距,单位mm',
+   `PDR`  varchar (25)  DEFAULT '0' COMMENT '右瞳距,单位mm',
+   `VAL`  varchar (25)  DEFAULT '0' COMMENT '左裸眼视力',
+   `VAR`  varchar (25)  DEFAULT '0' COMMENT '右裸眼视力',
+   `CVAL` varchar (25)  DEFAULT '0' COMMENT '左矫正视力',
+   `CVAR` varchar (25)  DEFAULT '0' COMMENT '右矫正视力',
+   `AL`   varchar (25)  DEFAULT '0' COMMENT '左眼轴向',
+   `AR`   varchar (5)   DEFAULT '0' COMMENT '右眼轴向',
+   `DL`   int(5) unsigned DEFAULT '0' COMMENT '左眼镜的度数',
+   `DR`   int(5) unsigned DEFAULT '0' COMMENT '右眼镜的度数',
+   `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
+   `modify_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
+   `remak` varchar (255) COMMENT '备注',
+   `user_id` int(11) NOT NULL,
+   `is_delete` TINYINT(1) DEFAULT 0 COMMENT '1:删除',
+   PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='验光单';
+
+
 
  INSERT INTO `eye_info` VALUES
    (null,'0.5','0.5','2.00','-1.00',NOW(),'',1,0),
@@ -157,8 +189,8 @@ ADD CONSTRAINT `fk_1` FOREIGN KEY (`eye_card_id`) REFERENCES `ushop_eye_card`(`i
    (null,'3.5','3.5','3.00','-1.00',NOW(),'',2,0),
    (null,'5.5','5.5','2.00','-1.00',NOW(),'',2,0);
 
-DROP TABLE IF EXISTS `eye_record`;
-CREATE TABLE `eye_record` (
+DROP TABLE IF EXISTS `ushop_eye_record`;
+CREATE TABLE `ushop_eye_record` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `type` CHAR(50) COMMENT '眼疾类型',
   `day`  CHAR(20)   COMMENT '治疗时长',
@@ -171,7 +203,7 @@ CREATE TABLE `eye_record` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='健康记录';
 
-INSERT INTO `eye_record` VALUES
+INSERT INTO `ushop_eye_record` VALUES
 (null,'溢泪症','15天','药物治疗','良好',NOW(),'',2,0),
 (null,'虹膜睫状体炎','30天','药物治疗','良好',NOW(),'',3,0),
 (null,'玻璃体病','1月','药物治疗','良好',NOW(),'',4,0);
@@ -234,16 +266,7 @@ CREATE TABLE `ushop_article_favorite` (
   PRIMARY KEY (`id`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章收藏';
 
- DROP TABLE IF EXISTS `ushop_article_comment`;
- CREATE TABLE `ushop_article_comment` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `article_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `content` text NOT NULL DEFAULT '' COMMENT '',
-  `is_delete` smallint(1) NOT NULL DEFAULT '0',
-  `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章评论';
+
 
 -- 根据type 获取 文章或视频的相关信息
 select u.id as user_id,a.id,a.title,a.content,a.addtime as create_time,r.type,r.relation_id from `ushop_user` as u
