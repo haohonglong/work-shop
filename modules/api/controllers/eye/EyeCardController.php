@@ -28,7 +28,7 @@ class EyeCardController extends BaseController
      * 功能：
      * 说明：
      * 注意：
-     * @api {get} http://youtong.shop/api/eye/eye-card/index 获取打卡信息
+     * @api {get} /eye/eye-card/index 获取打卡信息
      * @apiParam {Number} user_id  用户id
      * @return object
      */
@@ -113,7 +113,7 @@ class EyeCardController extends BaseController
      * 功能：
      * 说明：
      * 注意：
-     * @api {post} http://youtong.shop/api/eye/eye-card/record 记录打卡
+     * @api {post} /eye/eye-card/record 记录打卡
      * @apiParam {Number} user_id  用户id
      * @apiParam {Number} eye_card_id  当前卡的id
      * @return object

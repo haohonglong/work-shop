@@ -1,7 +1,7 @@
 [
   {
     "type": "get",
-    "url": "http://youtong.shop/api/eye/eye-card/index",
+    "url": "/eye/eye-card/index",
     "title": "获取打卡信息",
     "parameter": {
       "fields": {
@@ -20,11 +20,11 @@
     "filename": "modules/api/controllers/eye/EyeCardController.php",
     "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeCardController_php",
     "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeCardController_php",
-    "name": "GetHttpYoutongShopApiEyeEyeCardIndex"
+    "name": "GetEyeEyeCardIndex"
   },
   {
     "type": "post",
-    "url": "http://youtong.shop/api/eye/eye-card/record",
+    "url": "/eye/eye-card/record",
     "title": "记录打卡",
     "parameter": {
       "fields": {
@@ -50,21 +50,34 @@
     "filename": "modules/api/controllers/eye/EyeCardController.php",
     "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeCardController_php",
     "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeCardController_php",
-    "name": "PostHttpYoutongShopApiEyeEyeCardRecord"
+    "name": "PostEyeEyeCardRecord"
   },
   {
     "type": "get",
-    "url": "http://youtong.shop/api/eye/eye-optometry-list/index",
+    "url": "/eye-optometry-list/index",
     "title": "获取验光单信息",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "firstname",
+            "description": "<p>Firstname of the User.</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "modules/api/controllers/eye/EyeOptometryListController.php",
     "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
     "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
-    "name": "GetHttpYoutongShopApiEyeEyeOptometryListIndex"
+    "name": "GetEyeOptometryListIndex"
   },
   {
     "type": "post",
-    "url": "http://youtong.shop/api/eye/eye-optometry-list/add",
+    "url": "/eye/eye-optometry-list/add",
     "title": "添加验光单",
     "parameter": {
       "fields": {
@@ -195,11 +208,11 @@
     "filename": "modules/api/controllers/eye/EyeOptometryListController.php",
     "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
     "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
-    "name": "PostHttpYoutongShopApiEyeEyeOptometryListAdd"
+    "name": "PostEyeEyeOptometryListAdd"
   },
   {
     "type": "post",
-    "url": "http://youtong.shop/api/eye/eye-optometry-list/edit",
+    "url": "/eye/eye-optometry-list/edit",
     "title": "修改验光单",
     "parameter": {
       "fields": {
@@ -337,6 +350,6 @@
     "filename": "modules/api/controllers/eye/EyeOptometryListController.php",
     "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
     "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
-    "name": "PostHttpYoutongShopApiEyeEyeOptometryListEdit"
+    "name": "PostEyeEyeOptometryListEdit"
   }
 ]

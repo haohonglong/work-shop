@@ -21,7 +21,8 @@ class EyeOptometryListController extends BaseController
      * 功能：
      * 说明：
      * 注意：
-     * @api {get} http://youtong.shop/api/eye/eye-optometry-list/index 获取验光单信息
+     * @api {get} /eye-optometry-list/index 获取验光单信息
+     * @apiSuccess {String} firstname Firstname of the User.
      * @return object
      */
     public function actionIndex()
@@ -55,7 +56,7 @@ class EyeOptometryListController extends BaseController
      * 功能：
      * 说明：
      * 注意：
-     * @api {post} http://youtong.shop/api/eye/eye-optometry-list/add 添加验光单
+     * @api {post} /eye/eye-optometry-list/add 添加验光单
      * @apiParam {Number} user_id  用户id
      * @apiParam {String} VD  镜眼距,单位mm.
      * @apiParam {String} DSL 左球面镜.
@@ -98,7 +99,7 @@ class EyeOptometryListController extends BaseController
      * 说明：
      * 注意：
      *
-     * @api {post} http://youtong.shop/api/eye/eye-optometry-list/edit 修改验光单
+     * @api {post} /eye/eye-optometry-list/edit 修改验光单
      * @apiParam {Number} id
      * @apiParam {Number} user_id  用户id
      * @apiParam {String} VD  镜眼距,单位mm.
