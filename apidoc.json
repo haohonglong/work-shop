@@ -1,7 +1,8 @@
 {
-  "name": "example",
+  "name": "优瞳",
   "version": "0.1.0",
-  "description": "apiDoc basic example",
+  "description": "api 文档",
   "title": "Custom apiDoc browser title",
-  "url" : "http://youtong.shop/api"
+  "url" : "http://youtong.shop/api",
+  "sampleUrl" : "http://youtong.shop/api"
 }

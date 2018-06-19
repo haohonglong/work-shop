@@ -20,7 +20,12 @@
     "filename": "modules/api/controllers/eye/EyeCardController.php",
     "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeCardController_php",
     "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeCardController_php",
-    "name": "GetEyeEyeCardIndex"
+    "name": "GetEyeEyeCardIndex",
+    "sampleRequest": [
+      {
+        "url": "http://youtong.shop/api/eye/eye-card/index"
+      }
+    ]
   },
   {
     "type": "post",
@@ -50,21 +55,26 @@
     "filename": "modules/api/controllers/eye/EyeCardController.php",
     "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeCardController_php",
     "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeCardController_php",
-    "name": "PostEyeEyeCardRecord"
+    "name": "PostEyeEyeCardRecord",
+    "sampleRequest": [
+      {
+        "url": "http://youtong.shop/api/eye/eye-card/record"
+      }
+    ]
   },
   {
     "type": "get",
-    "url": "/eye-optometry-list/index",
+    "url": "/eye/eye-optometry-list/index",
     "title": "获取验光单信息",
     "success": {
       "fields": {
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "Object",
             "optional": false,
-            "field": "firstname",
-            "description": "<p>Firstname of the User.</p>"
+            "field": "object",
+            "description": ""
           }
         ]
       }
@@ -73,7 +83,12 @@
     "filename": "modules/api/controllers/eye/EyeOptometryListController.php",
     "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
     "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
-    "name": "GetEyeOptometryListIndex"
+    "name": "GetEyeEyeOptometryListIndex",
+    "sampleRequest": [
+      {
+        "url": "http://youtong.shop/api/eye/eye-optometry-list/index"
+      }
+    ]
   },
   {
     "type": "post",
@@ -204,11 +219,36 @@
         ]
       }
     },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "1",
+            "description": "<p>successfully</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "0",
+            "description": "<p>fail</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "modules/api/controllers/eye/EyeOptometryListController.php",
     "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
     "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
-    "name": "PostEyeEyeOptometryListAdd"
+    "name": "PostEyeEyeOptometryListAdd",
+    "sampleRequest": [
+      {
+        "url": "http://youtong.shop/api/eye/eye-optometry-list/add"
+      }
+    ]
   },
   {
     "type": "post",
@@ -346,10 +386,92 @@
         ]
       }
     },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "1",
+            "description": "<p>successfully</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "0",
+            "description": "<p>fail</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "modules/api/controllers/eye/EyeOptometryListController.php",
     "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
     "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
-    "name": "PostEyeEyeOptometryListEdit"
+    "name": "PostEyeEyeOptometryListEdit",
+    "sampleRequest": [
+      {
+        "url": "http://youtong.shop/api/eye/eye-optometry-list/edit"
+      }
+    ]
+  },
+  {
+    "type": "post",
+    "url": "/eye/person-card/add",
+    "title": "添加人员卡",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "title",
+            "description": "<p>标题</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "tip",
+            "description": "<p>提示</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "type",
+            "description": "<p>卡的类型</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "modules/api/controllers/eye/PersonCardController.php",
+    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_PersonCardController_php",
+    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_PersonCardController_php",
+    "name": "PostEyePersonCardAdd",
+    "sampleRequest": [
+      {
+        "url": "http://youtong.shop/api/eye/person-card/add"
+      }
+    ]
+  },
+  {
+    "type": "post",
+    "url": "/eye/person-card/index",
+    "title": "显示人员卡",
+    "version": "0.0.0",
+    "filename": "modules/api/controllers/eye/PersonCardController.php",
+    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_PersonCardController_php",
+    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_PersonCardController_php",
+    "name": "PostEyePersonCardIndex",
+    "sampleRequest": [
+      {
+        "url": "http://youtong.shop/api/eye/person-card/index"
+      }
+    ]
   }
 ]

@@ -1,15 +1,15 @@
 define({
-  "name": "example",
+  "name": "优瞳",
   "version": "0.1.0",
-  "description": "apiDoc basic example",
+  "description": "api 文档",
   "title": "Custom apiDoc browser title",
   "url": "http://youtong.shop/api",
-  "sampleUrl": false,
+  "sampleUrl": "http://youtong.shop/api",
   "defaultVersion": "0.0.0",
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "2018-06-19T08:28:47.597Z",
+    "time": "2018-06-19T09:31:01.107Z",
     "url": "http://apidocjs.com",
     "version": "0.17.6"
   }

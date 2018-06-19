@@ -21,8 +21,8 @@ class EyeOptometryListController extends BaseController
      * 功能：
      * 说明：
      * 注意：
-     * @api {get} /eye-optometry-list/index 获取验光单信息
-     * @apiSuccess {String} firstname Firstname of the User.
+     * @api {get} /eye/eye-optometry-list/index 获取验光单信息
+     * @apiSuccess {Object} object
      * @return object
      */
     public function actionIndex()
@@ -75,6 +75,8 @@ class EyeOptometryListController extends BaseController
      * @apiParam {Number} DR 右眼镜的度数
      * @apiParam {String} remak 备注
      *
+     * @apiSuccess {Number} 1 successfully
+     * @apiSuccess {Number} 0 fail
      * @return object
      */
     public function actionAdd()
@@ -118,7 +120,8 @@ class EyeOptometryListController extends BaseController
      * @apiParam {Number} DL 左眼镜的度数
      * @apiParam {Number} DR 右眼镜的度数
      * @apiParam {String} remak 备注
-     *
+     * @apiSuccess {Number} 1 successfully
+     * @apiSuccess {Number} 0 fail
      * @return object
      */
     public function actionEdit()

@@ -10,6 +10,7 @@ namespace app\modules\api\controllers\eye;
 
 use app\helper\Date;
 use app\models\EyeRecordLog;
+use app\models\EyeUser;
 use yii;
 use app\models\EyeCard;
 use app\models\EyeCardForm;
@@ -123,6 +124,10 @@ class EyeCardController extends BaseController
         $request = yii::$app->request;
         $user_id = $request->post('user_id');
         $eye_card_id = $request->post('eye_card_id');
+        $eyeCard = EyeCard::find()->where(['id'=>$eye_card_id])->limit(1)->one();
+        $eyeUser = EyeUser::find()->where(['id'=>$user_id])->limit(1)->one();
+        if(!$eyeCard){return Response::json(0,'没有此卡片');}
+        if(!$eyeUser){return Response::json(0,'用户不存在');}
         $data = EyeRecordLog::find()
             ->asArray()
             ->where(['user_id'=>$user_id,'eye_card_id'=>$eye_card_id])->all();
