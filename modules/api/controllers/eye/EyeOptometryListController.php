@@ -11,8 +11,17 @@ use app\models\User;
 
 class EyeOptometryListController extends BaseController
 {
+
     /**
-     * type{integer} 根据人员卡类型，获取所有人眼的信息
+     *
+     * @author lhh
+     * 创建日期：2018-06-19
+     * 修改日期：2018-06-19
+     * 名称：actionIndex
+     * 功能：
+     * 说明：
+     * 注意：
+     * @api {get} http://youtong.shop/api/eye/eye-optometry-list/index 获取验光单信息
      * @return object
      */
     public function actionIndex()
@@ -36,6 +45,37 @@ class EyeOptometryListController extends BaseController
         return Response::json(0,'没有匹配的数据');
     }
 
+    /**
+     *
+     *
+     * @author lhh
+     * 创建日期：2018-06-19
+     * 修改日期：2018-06-19
+     * 名称：actionAdd
+     * 功能：
+     * 说明：
+     * 注意：
+     * @api {post} http://youtong.shop/api/eye/eye-optometry-list/add 添加验光单
+     * @apiParam {Number} user_id  用户id
+     * @apiParam {String} VD  镜眼距,单位mm.
+     * @apiParam {String} DSL 左球面镜.
+     * @apiParam {String} DSR 右球面镜
+     * @apiParam {String} DCL 左圆柱镜
+     * @apiParam {String} DCR 右圆柱镜
+     * @apiParam {String} PDL 左瞳距,单位mm
+     * @apiParam {String} PDR 右瞳距,单位mm
+     * @apiParam {String} VAL 左裸眼视力
+     * @apiParam {String} VAR 右裸眼视力
+     * @apiParam {String} CVAL 左矫正视力
+     * @apiParam {String} CVAR 右矫正视力
+     * @apiParam {String} AL 左眼轴向
+     * @apiParam {String} AR 右眼轴向
+     * @apiParam {Number} DL 左眼镜的度数
+     * @apiParam {Number} DR 右眼镜的度数
+     * @apiParam {String} remak 备注
+     *
+     * @return object
+     */
     public function actionAdd()
     {
         $request = yii::$app->request;
@@ -48,6 +88,38 @@ class EyeOptometryListController extends BaseController
         }
 
     }
+
+    /**
+     * @author lhh
+     * 创建日期：2018-06-19
+     * 修改日期：2018-06-19
+     * 名称：actionEdit
+     * 功能：
+     * 说明：
+     * 注意：
+     *
+     * @api {post} http://youtong.shop/api/eye/eye-optometry-list/edit 修改验光单
+     * @apiParam {Number} id
+     * @apiParam {Number} user_id  用户id
+     * @apiParam {String} VD  镜眼距,单位mm.
+     * @apiParam {String} DSL 左球面镜.
+     * @apiParam {String} DSR 右球面镜
+     * @apiParam {String} DCL 左圆柱镜
+     * @apiParam {String} DCR 右圆柱镜
+     * @apiParam {String} PDL 左瞳距,单位mm
+     * @apiParam {String} PDR 右瞳距,单位mm
+     * @apiParam {String} VAL 左裸眼视力
+     * @apiParam {String} VAR 右裸眼视力
+     * @apiParam {String} CVAL 左矫正视力
+     * @apiParam {String} CVAR 右矫正视力
+     * @apiParam {String} AL 左眼轴向
+     * @apiParam {String} AR 右眼轴向
+     * @apiParam {Number} DL 左眼镜的度数
+     * @apiParam {Number} DR 右眼镜的度数
+     * @apiParam {String} remak 备注
+     *
+     * @return object
+     */
     public function actionEdit()
     {
         $request = yii::$app->request;

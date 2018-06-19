@@ -18,8 +18,18 @@ use app\helper\Response;
 
 class EyeCardController extends BaseController
 {
+
+
     /**
-     * 获取打卡
+     * @author lhh
+     * 创建日期：2018-06-19
+     * 修改日期：2018-06-19
+     * 名称：actionIndex
+     * 功能：
+     * 说明：
+     * 注意：
+     * @api {get} http://youtong.shop/api/eye/eye-card/index 获取打卡信息
+     * @apiParam {Number} user_id  用户id
      * @return object
      */
     public function actionIndex()
@@ -61,7 +71,16 @@ class EyeCardController extends BaseController
 	    return Response::json(0,'fail');
     }
 
-
+    /**
+     * @author lhh
+     * 创建日期：2018-06-19
+     * 修改日期：2018-06-19
+     * 名称：actionAdd
+     * 功能：
+     * 说明：
+     * 注意：
+     * @return object
+     */
     public function actionAdd()
     {
         $model = new EyeCardForm();
@@ -85,8 +104,18 @@ class EyeCardController extends BaseController
 	    return Response::json(0,'fail');
     }
 
+
     /**
-     * 记录打卡
+     * @author lhh
+     * 创建日期：2018-06-19
+     * 修改日期：2018-06-19
+     * 名称：actionRecord
+     * 功能：
+     * 说明：
+     * 注意：
+     * @api {post} http://youtong.shop/api/eye/eye-card/record 记录打卡
+     * @apiParam {Number} user_id  用户id
+     * @apiParam {Number} eye_card_id  当前卡的id
      * @return object
      */
     public function actionRecord()
