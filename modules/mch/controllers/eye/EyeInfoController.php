@@ -80,6 +80,7 @@ class EyeInfoController extends Controller
         ]);
     }
 
+
     public function actionDel($id=null)
     {
         EyeOptometryListForm::del($id);
