@@ -34,7 +34,6 @@ class FamilyController extends BaseController
             $userid = $request->post('userid');
             $id = str_replace(' ', '',$request->post('id'));
             $name = $request->post('name','');
-
             $user = User::find()->where(['id'=>$userid])->limit(1)->one();
             if($user){
                 //家庭是否已存在了
