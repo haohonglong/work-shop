@@ -96,8 +96,19 @@ class EyeInfoController extends BaseController
 	    return Response::json(0,'fail');
     }
 
+
+
     /**
-     * 统计眼睛数据 GET
+     * @author lhh
+     * 创建日期：2018-06-20
+     * 修改日期：2018-06-20
+     * 名称：actionCount
+     * 功能：
+     * 说明：
+     * 注意：
+     * @api {get} /eye/eye-info/count/ 统计眼睛数据
+     * @apiParam {Number} date  按年份筛选
+     * @apiGroup Eyeinfo
      * @return object
      */
     public function actionCount()
@@ -142,8 +153,16 @@ class EyeInfoController extends BaseController
 
     }
 
+
     /**
-     * 获取世界卫生组织全部数据 GET
+     * @author lhh
+     * 创建日期：2018-06-20
+     * 修改日期：2018-06-20
+     * 名称：actionWorldCount
+     * 功能：
+     * 说明：
+     * 注意：
+     * @api {get} /eye/eye-info/world-count/ 获取世界卫生组织全部数据
      * @return object
      */
     public function actionWorldCount()

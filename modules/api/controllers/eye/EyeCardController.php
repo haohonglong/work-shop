@@ -11,6 +11,7 @@ namespace app\modules\api\controllers\eye;
 use app\helper\Date;
 use app\models\EyeRecordLog;
 use app\models\EyeUser;
+use app\models\User;
 use yii;
 use app\models\EyeCard;
 use app\models\EyeCardForm;
@@ -76,40 +77,6 @@ class EyeCardController extends BaseController
      * @author lhh
      * 创建日期：2018-06-19
      * 修改日期：2018-06-19
-     * 名称：actionAdd
-     * 功能：
-     * 说明：
-     * 注意：
-     * @return object
-     */
-    public function actionAdd()
-    {
-        $model = new EyeCardForm();
-        $request = yii::$app->request;
-        $model->title = $request->post('title');
-        if ($model->save()) {
-            return Response::json(1,'successfully');
-        }
-	    return Response::json(0,'fail');
-    }
-
-    public function actionEdit()
-    {
-        $model = new EyeCardForm();
-        $request = yii::$app->request;
-        $model->id = $request->post('id');
-        $model->title = $request->post('title');
-        if ($model->edit()) {
-            return Response::json(1,'successfully');
-        }
-	    return Response::json(0,'fail');
-    }
-
-
-    /**
-     * @author lhh
-     * 创建日期：2018-06-19
-     * 修改日期：2018-06-19
      * 名称：actionRecord
      * 功能：
      * 说明：
@@ -125,7 +92,7 @@ class EyeCardController extends BaseController
         $user_id = $request->post('user_id');
         $eye_card_id = $request->post('eye_card_id');
         $eyeCard = EyeCard::find()->where(['id'=>$eye_card_id])->limit(1)->one();
-        $eyeUser = EyeUser::find()->where(['id'=>$user_id])->limit(1)->one();
+        $eyeUser = User::find()->where(['id'=>$user_id])->limit(1)->one();
         if(!$eyeCard){return Response::json(0,'没有此卡片');}
         if(!$eyeUser){return Response::json(0,'用户不存在');}
         $data = EyeRecordLog::find()

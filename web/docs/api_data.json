@@ -64,8 +64,36 @@
   },
   {
     "type": "get",
+    "url": "/eye/eye-info/world-count/",
+    "title": "获取世界卫生组织全部数据",
+    "version": "0.0.0",
+    "filename": "modules/api/controllers/eye/EyeInfoController.php",
+    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeInfoController_php",
+    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeInfoController_php",
+    "name": "GetEyeEyeInfoWorldCount",
+    "sampleRequest": [
+      {
+        "url": "http://youtong.shop/api/eye/eye-info/world-count/"
+      }
+    ]
+  },
+  {
+    "type": "get",
     "url": "/eye/eye-optometry-list/index",
     "title": "获取验光单信息",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "userid",
+            "description": "<p>用户id</p>"
+          }
+        ]
+      }
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -382,6 +410,13 @@
             "optional": false,
             "field": "remak",
             "description": "<p>备注</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "token_id",
+            "description": "<p>修改时的口令</p>"
           }
         ]
       }
@@ -418,9 +453,24 @@
     ]
   },
   {
+    "type": "get",
+    "url": "/eye/eye-record/index",
+    "title": "眼睛健康记录",
+    "version": "0.0.0",
+    "filename": "modules/api/controllers/eye/EyeRecordController.php",
+    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeRecordController_php",
+    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeRecordController_php",
+    "name": "GetEyeEyeRecordIndex",
+    "sampleRequest": [
+      {
+        "url": "http://youtong.shop/api/eye/eye-record/index"
+      }
+    ]
+  },
+  {
     "type": "post",
-    "url": "/eye/person-card/add",
-    "title": "添加人员卡",
+    "url": "/eye/eye-record/add",
+    "title": "眼睛健康记录添加",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -428,34 +478,118 @@
             "group": "Parameter",
             "type": "Number",
             "optional": false,
-            "field": "title",
-            "description": "<p>标题</p>"
+            "field": "user_id",
+            "description": ""
           },
           {
             "group": "Parameter",
             "type": "Number",
             "optional": false,
-            "field": "tip",
-            "description": "<p>提示</p>"
+            "field": "day",
+            "description": "<p>天数</p>"
           },
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "String",
             "optional": false,
             "field": "type",
-            "description": "<p>卡的类型</p>"
+            "description": "<p>症状类型</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "method",
+            "description": "<p>治疗方法</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "feel",
+            "description": "<p>感受度</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "tip",
+            "description": "<p>小提示</p>"
           }
         ]
       }
     },
     "version": "0.0.0",
-    "filename": "modules/api/controllers/eye/PersonCardController.php",
-    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_PersonCardController_php",
-    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_PersonCardController_php",
-    "name": "PostEyePersonCardAdd",
+    "filename": "modules/api/controllers/eye/EyeRecordController.php",
+    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeRecordController_php",
+    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeRecordController_php",
+    "name": "PostEyeEyeRecordAdd",
     "sampleRequest": [
       {
-        "url": "http://youtong.shop/api/eye/person-card/add"
+        "url": "http://youtong.shop/api/eye/eye-record/add"
+      }
+    ]
+  },
+  {
+    "type": "post",
+    "url": "/eye/eye-record/edit",
+    "title": "眼睛健康记录修改",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "day",
+            "description": "<p>天数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "type",
+            "description": "<p>症状类型</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "method",
+            "description": "<p>治疗方法</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "feel",
+            "description": "<p>感受度</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "tip",
+            "description": "<p>小提示</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "modules/api/controllers/eye/EyeRecordController.php",
+    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeRecordController_php",
+    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeRecordController_php",
+    "name": "PostEyeEyeRecordEdit",
+    "sampleRequest": [
+      {
+        "url": "http://youtong.shop/api/eye/eye-record/edit"
       }
     ]
   },
@@ -471,6 +605,167 @@
     "sampleRequest": [
       {
         "url": "http://youtong.shop/api/eye/person-card/index"
+      }
+    ]
+  },
+  {
+    "type": "get",
+    "url": "/eye/user/index/",
+    "title": "显示个人信息",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "userid",
+            "description": "<p>用户ID</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "modules/api/controllers/eye/UserController.php",
+    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_UserController_php",
+    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_UserController_php",
+    "name": "GetEyeUserIndex",
+    "sampleRequest": [
+      {
+        "url": "http://youtong.shop/api/eye/user/index/"
+      }
+    ]
+  },
+  {
+    "type": "post",
+    "url": "/eye/user/modify/",
+    "title": "修改个人信息",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "userid",
+            "description": "<p>用户ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "age",
+            "description": "<p>年龄</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "ill_age",
+            "description": "<p>近视几年了</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "f_type",
+            "description": "<p>家庭成员特征：1:父母，2：孩子，3：老人</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>用户真实姓名</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>联系手机号码</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "modules/api/controllers/eye/UserController.php",
+    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_UserController_php",
+    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_UserController_php",
+    "name": "PostEyeUserModify",
+    "sampleRequest": [
+      {
+        "url": "http://youtong.shop/api/eye/user/modify/"
+      }
+    ]
+  },
+  {
+    "type": "get",
+    "url": "/eye/eye-info/count/",
+    "title": "统计眼睛数据",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "date",
+            "description": "<p>按年份筛选</p>"
+          }
+        ]
+      }
+    },
+    "group": "Eyeinfo",
+    "version": "0.0.0",
+    "filename": "modules/api/controllers/eye/EyeInfoController.php",
+    "groupTitle": "Eyeinfo",
+    "name": "GetEyeEyeInfoCount",
+    "sampleRequest": [
+      {
+        "url": "http://youtong.shop/api/eye/eye-info/count/"
+      }
+    ]
+  },
+  {
+    "type": "post",
+    "url": "/eye/family/create/",
+    "title": "创建家庭号",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>家庭号ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "name",
+            "description": "<p>家庭昵称</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "userid",
+            "description": "<p>用户ID</p>"
+          }
+        ]
+      }
+    },
+    "group": "Family",
+    "version": "0.0.0",
+    "filename": "modules/api/controllers/eye/FamilyController.php",
+    "groupTitle": "Family",
+    "name": "PostEyeFamilyCreate",
+    "sampleRequest": [
+      {
+        "url": "http://youtong.shop/api/eye/family/create/"
       }
     ]
   }

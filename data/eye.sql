@@ -44,21 +44,17 @@ CREATE TABLE `ushop_user` (
 
 DROP TABLE IF EXISTS `ushop_eye_user`;
 CREATE TABLE `ushop_eye_user` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `userid` int(11) unsigned NOT NULL,
   `name` varchar(255) COMMENT '患者真实姓名',
-  `age` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `ill_age` tinyint(2) NOT NULL DEFAULT '0' COMMENT '近视多久',
+  `age` tinyint(3) unsigned,
+  `ill_age` tinyint(2) COMMENT '近视多久',
   `creat_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
   `modify_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
-  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户,0：被登录用户创建的，不是登录者本人',
-  `guardian` varchar (128) COMMENT '监护人',
-  `job` varchar (128) COMMENT '职业',
   `pc_id` int(11) COMMENT '家庭卡包-person_card',
   `phone` varchar (16) COMMENT '电话号码',
   `f_id` varchar (16) COMMENT '家庭号',
-  `f_type` tinyint(1) unsigned DEFAULT 0 COMMENT '家庭成员特征：1:家长，2：学生，3：老人',
-  `is_delete` TINYINT(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
+  `f_type` tinyint(1) unsigned DEFAULT 0 COMMENT '家庭成员特征：1:父母，2：孩子，3：老人',
+  PRIMARY KEY (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='眼睛用户';
 
 DROP TABLE IF EXISTS `ushop_eye_user_vip`;

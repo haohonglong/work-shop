@@ -22,22 +22,16 @@ class EyeOptometryListController extends BaseController
      * 说明：
      * 注意：
      * @api {get} /eye/eye-optometry-list/index 获取验光单信息
+     * @apiParam {Number} userid  用户id
      * @apiSuccess {Object} object
      * @return object
      */
-    public function actionIndex()
+    public function actionIndex($userid)
     {
         $request = yii::$app->request;
-        $query = EyeUser::find();
-        $query->alias('eu')
-            ->select('eu.*')
-            ->addSelect('e.*')
-            ->leftJoin(['e'=>EyeOptometryList::tableName()],'e.user_id = eu.id')
-            ->leftJoin(['u'=>User::tableName()],'eu.userid = u.id')
-            ->orderBy('e.id DESC')
-            ->asArray()
-            ->where(['eu.is_delete'=>0]);
-
+        $query = EyeOptometryList::find()
+            ->where(['user_id'=>$userid])
+            ->asArray();
             $data = $query->all();
 
         if($data){
@@ -120,6 +114,7 @@ class EyeOptometryListController extends BaseController
      * @apiParam {Number} DL 左眼镜的度数
      * @apiParam {Number} DR 右眼镜的度数
      * @apiParam {String} remak 备注
+     * @apiParam {String} token_id 修改时的口令
      * @apiSuccess {Number} 1 successfully
      * @apiSuccess {Number} 0 fail
      * @return object
@@ -128,14 +123,19 @@ class EyeOptometryListController extends BaseController
     {
         $request = yii::$app->request;
         if($request->isPost){
-            $id = $request->post('id');
-            $model = EyeOptometryList::find()->where(['id'=>$id])->limit(1)->one();
-            if($model->load($request->post(),'')){
-                if($model->save()){
-                    return Response::json(1,'successfully');
+            if('_youtong_' == $request->post('token_id')){
+                $id = $request->post('id');
+                $model = EyeOptometryList::find()->where(['id'=>$id])->limit(1)->one();
+                if($model->load($request->post(),'')){
+                    if($model->save()){
+                        return Response::json(1,'successfully');
+                    }
                 }
+                return Response::json(0,'fail');
+            }else{
+                return Response::json(0,'token_id 错误');
             }
-            return Response::json(0,'fail');
+
         }
     }
 
