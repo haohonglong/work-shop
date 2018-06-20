@@ -31,6 +31,7 @@ class EyeOptometryListController extends BaseController
         $request = yii::$app->request;
         $query = EyeOptometryList::find()
             ->where(['user_id'=>$userid])
+            ->orderBy(['modify_at' => SORT_DESC])
             ->asArray();
             $data = $query->all();
 

@@ -20,11 +20,12 @@ class EyeRecordController extends BaseController
      * 说明：
      * 注意：
      * @api {get} /eye/eye-record/index 眼睛健康记录
+     * @apiParam {Number} userid
      * @return object
      */
-    public function actionIndex()
+    public function actionIndex($userid=null)
     {
-        $data = (new Query())->select('*')->from(EyeRecord::tableName())->where(['is_del'=>0])->all();
+        $data = (new Query())->select('*')->from(EyeRecord::tableName())->where(['user_id'=>$userid,'is_del'=>0])->all();
 	    if($data){
 		    return Response::json(1,'successfully',$data);
 	    }

@@ -137,7 +137,9 @@ class Controller extends \app\controllers\Controller
      */
     protected function getUsers()
     {
-        $data = (new Query())->select('id,name')->from(EyeUser::tableName())->all();
+        $data = (new Query())->select('u.id,eu.name')->from(['u'=>User::tableName()])
+            ->innerJoin(['eu'=>EyeUser::tableName()],'eu.userid = u.id')
+            ->all();
         $data = yii\helpers\ArrayHelper::map($data, 'id', 'name');
         return $data;
     }

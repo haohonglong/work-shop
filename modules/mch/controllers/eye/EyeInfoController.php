@@ -30,14 +30,11 @@ class EyeInfoController extends Controller
     public function actionIndex()
     {
 	    $request = yii::$app->request;
-	    $query = EyeUser::find()
-            ->alias('eu')
-		    ->select('eu.*')
-		    ->addSelect('e.*')
-		    ->leftJoin(['e'=>EyeOptometryList::tableName()],'e.user_id = eu.id')
-		    ->leftJoin(['u'=>User::tableName()],'eu.userid = u.id')
-            ->orderBy('e.id DESC')
-		    ->where(['eu.is_delete'=>0]);
+	    $query = User::find()
+            ->alias('u')
+		    ->select('e.*')
+		    ->leftJoin(['e'=>EyeOptometryList::tableName()],'e.user_id = u.id')
+            ->orderBy('e.id DESC');
 
 
 		if($query){

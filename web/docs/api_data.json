@@ -456,6 +456,19 @@
     "type": "get",
     "url": "/eye/eye-record/index",
     "title": "眼睛健康记录",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "userid",
+            "description": ""
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "modules/api/controllers/eye/EyeRecordController.php",
     "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeRecordController_php",
