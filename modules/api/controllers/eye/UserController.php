@@ -8,6 +8,7 @@
 
 namespace app\modules\api\controllers\eye;
 
+use app\models\Family;
 use app\models\User;
 use yii;
 use app\helper\Response;
@@ -36,6 +37,34 @@ class UserController extends BaseController
             ->leftJoin(['eu'=>EyeUser::tableName()],'eu.userid = u.id')
             ->where(['u.id'=>$userid]);
         $data = $query->one();
+        if($data){
+            return Response::json(1,'successfully',$data);
+        }
+        return Response::json(0,'fail');
+    }
+
+    /**
+     * @author lhh
+     * 创建日期：2018-06-21
+     * 修改日期：2018-06-21
+     * 名称：actionList
+     * 功能：
+     * 说明：
+     * 注意：
+     * @api {get} /eye/user/list/ 列出家庭所有成员
+     * @apiParam {Number} id    家庭ID
+     * @return object
+     */
+    public function actionList()
+    {
+        $request = yii::$app->request;
+        $id = $request->get('id');
+        $query = (new yii\db\Query())
+            ->select('u.id,u.gender,u.nickname,u.avatar_url,eu.name')
+            ->from(['eu'=>EyeUser::tableName()])
+            ->leftJoin(['u'=>User::tableName()],'u.id = eu.userid')
+            ->where(['eu.f_id'=>$id]);
+        $data = $query->all();
         if($data){
             return Response::json(1,'successfully',$data);
         }

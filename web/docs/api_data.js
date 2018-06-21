@@ -650,6 +650,34 @@ define({ "api": [
     ]
   },
   {
+    "type": "get",
+    "url": "/eye/user/list/",
+    "title": "列出家庭所有成员",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>家庭ID</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "modules/api/controllers/eye/UserController.php",
+    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_UserController_php",
+    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_UserController_php",
+    "name": "GetEyeUserList",
+    "sampleRequest": [
+      {
+        "url": "http://youtong.shop/api/eye/user/list/"
+      }
+    ]
+  },
+  {
     "type": "post",
     "url": "/eye/user/modify/",
     "title": "修改个人信息",
