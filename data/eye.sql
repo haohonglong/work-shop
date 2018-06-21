@@ -262,6 +262,15 @@ CREATE TABLE `ushop_article_favorite` (
   PRIMARY KEY (`id`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章收藏';
 
+DROP TABLE IF EXISTS `ushop_cashback`;
+CREATE TABLE `ushop_cashback` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `userid` int(11) NOT NULL COMMENT '哪个人申请返现',
+  `status` TINYINT(1) DEFAULT 0 COMMENT '1:审核通过，2：审核中，3：审核失败',
+  PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='政府返现';
+
+
 
 
 -- 根据type 获取 文章或视频的相关信息

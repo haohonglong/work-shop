@@ -39,6 +39,7 @@ class FamilyController extends BaseController
      * @apiParam {Number} name    家庭昵称
      * @apiParam {Number} userid  用户ID
      * @apiGroup Family
+     * @apiSuccess {String}  code 0:失败 ;1:成功;2:家庭号不对.
      * @return object
      */
     public function actionCreate()
@@ -53,24 +54,26 @@ class FamilyController extends BaseController
             $user = User::find()->where(['id'=>$userid])->limit(1)->one();
             if($user){
                 $eyeUser = EyeUser::find()->where(['userid'=>$userid])->limit(1)->one();
-                if(Family::findOne(['id'=>$id])){//家庭是否已存在了
+                if(Family::findOne(['id'=>$id])){//家庭号是否已存在
                     if(!$eyeUser){
                         $this->createEyeUser();
                     }
                     return Response::json(0,'家庭号已存在');
                 }else{
-                    if($eyeUser && isset($eyeUser->f_id) && !empty($eyeUser->f_id) && $eyeUser->f_id != $id){
-                        return Response::json(0,'输入的家庭号不对');
-                    }
-                    $family = new Family();
-                    $family->id = $id;
-                    $family->name = $name;
-                    $family->save();
-                    //家庭id添加到用户里
-                    if(!$eyeUser){
+                    if(!$eyeUser){//用户是否第一次登录
+                        $family = new Family();
+                        $family->id = $id;
+                        $family->name = $name;
+                        $family->save();
                         $this->createEyeUser();
+                        return Response::json(1,'successfully');
+                    }else{
+                        if((isset($eyeUser->f_id) && $eyeUser->f_id != $id)){//用户之前家庭号已存在，跟此次输入的家庭号比对，结果必须一致
+                            return Response::json(2,'家庭号不对');
+                        }
+
                     }
-                    return Response::json(1,'successfully');
+
                 }
 
             }else{

@@ -800,6 +800,19 @@
       }
     },
     "group": "Family",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": "<p>0:失败 ;1:成功;2:家庭号不对.</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "modules/api/controllers/eye/FamilyController.php",
     "groupTitle": "Family",
