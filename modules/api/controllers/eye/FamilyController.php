@@ -29,7 +29,7 @@ class FamilyController extends BaseController
     /**
      * @author lhh
      * 创建日期：2018-06-13
-     * 修改日期：2018-06-13
+     * 修改日期：2018-06-21
      * 名称：actionCreate
      * 功能：创建家庭，同时把当前用户添加到eyeuser 表里
      * 说明：
