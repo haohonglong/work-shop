@@ -59,6 +59,9 @@ class FamilyController extends BaseController
                     }
                     return Response::json(0,'家庭号已存在');
                 }else{
+                    if($eyeUser && isset($eyeUser->f_id) && !empty($eyeUser->f_id) && $eyeUser->f_id != $id){
+                        return Response::json(0,'输入的家庭号不对');
+                    }
                     $family = new Family();
                     $family->id = $id;
                     $family->name = $name;
