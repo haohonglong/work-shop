@@ -808,7 +808,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "code",
-            "description": "<p>0:失败 ;1:成功;2:家庭号不对;3：家庭号已存在;4：用户还没有登录.</p>"
+            "description": "<p>0:失败 ;1:成功;2:家庭号不对;3：家庭号已存在;4：没有此用户.</p>"
           }
         ]
       }
