@@ -14,6 +14,7 @@ $this->title = '家庭';
             <tr>
                 <th>ID</th>
                 <th>名称</th>
+                <th>家庭成员IDS</th>
                 <td>操作</td>
             </tr>
             </thead>
@@ -21,6 +22,7 @@ $this->title = '家庭';
                 <tr>
                     <td><?= $item['id'] ?></td>
                     <td><?= $item['name'] ?></td>
+                    <td><?= $item['users'] ?></td>
                     <td>
                         <a class="btn btn-primary auto-form-btn" href="<?=Url::to(['edit','id'=>$item['id']]);?>">编辑</a>
                     </td>
