@@ -39,7 +39,7 @@ class FamilyController extends BaseController
      * @apiParam {Number} name    家庭昵称
      * @apiParam {Number} userid  用户ID
      * @apiGroup Family
-     * @apiSuccess {String}  code 0:失败 ;1:成功;2:家庭号不对.
+     * @apiSuccess {String}  code 0:失败 ;1:成功;2:家庭号不对;3：家庭号已存在;4：用户还没有登录.
      * @return object
      */
     public function actionCreate()
@@ -58,7 +58,7 @@ class FamilyController extends BaseController
                     if(!$eyeUser){
                         $this->createEyeUser();
                     }
-                    return Response::json(0,'家庭号已存在');
+                    return Response::json(3,'家庭号已存在');
                 }else{
                     if(!$eyeUser){//用户是否第一次登录
                         $family = new Family();
@@ -77,7 +77,7 @@ class FamilyController extends BaseController
                 }
 
             }else{
-                return Response::json(0,'用户还没有登录');
+                return Response::json(4,'用户还没有登录');
             }
         }
         return Response::json(0,'fail');
