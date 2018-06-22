@@ -36,13 +36,11 @@ class FamilyController extends Controller
                     'users'=>[],
                 ];
             }
-            $users = [];
             foreach ($user as $k2 => $v2){
                 if($v2['f_id'] == $v1['id']){
-                    $users[] = $v2['userid'];
+                    $data2[$v1['id']]['users'][] = $v2['userid'];
                 }
             }
-            $data2[$v1['id']]['users']=implode(',',$users);
         }
         $data2 = array_values($data2);
         $var =[

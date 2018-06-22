@@ -22,7 +22,7 @@ $this->title = '家庭';
                 <tr>
                     <td><?= $item['id'] ?></td>
                     <td><?= $item['name'] ?></td>
-                    <td><?= $item['users'] ?></td>
+                    <td><?= implode(',',$item['users']) ?></td>
                     <td>
                         <a class="btn btn-primary auto-form-btn" href="<?=Url::to(['edit','id'=>$item['id']]);?>">编辑</a>
                     </td>
