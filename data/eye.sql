@@ -270,7 +270,13 @@ CREATE TABLE `ushop_cashback` (
   PRIMARY KEY (`id`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='政府返现';
 
-
+DROP TABLE IF EXISTS `ushop_cashback_pic`;
+CREATE TABLE `ushop_cashback_pic` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  'pic' longtext NOT NULL COMMENT '',
+  'note' text COMMENT '备注',
+  PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='政府返现';
 
 
 -- 根据type 获取 文章或视频的相关信息
