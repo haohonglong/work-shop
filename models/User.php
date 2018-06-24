@@ -178,4 +178,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public static function getCardCount($id){
         return UserCard::find()->where(['is_delete'=>0,'user_id'=>$id])->count();
     }
+
+    public static function isVip($id)
+    {
+        return static::find()->where(['id'=>$id,'is_delete'=>0,['not',['level'=>'-1']]])->limit(1)->one();
+
+    }
 }
