@@ -16,16 +16,12 @@ use Yii;
  * @property string $create_at
  * @property string $modify_at
  */
-class Cashback extends Model
+class CashbackForm extends Model
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return '{{%cashback}}';
-    }
-
+    public $pic_list,
+            $userid,
+            $remark,
+            $pic_optometry_list;
     /**
      * {@inheritdoc}
      */
@@ -33,10 +29,30 @@ class Cashback extends Model
     {
         return [
             [['userid', 'pic_list', 'pic_optometry_list'], 'required'],
-            [['userid', 'status'], 'integer'],
+            [['userid'], 'integer'],
             [['pic_list', 'pic_optometry_list', 'remark'], 'string'],
-            [['create_at', 'modify_at'], 'safe'],
         ];
+    }
+
+    public function apply()
+    {
+        $this->pic_list = json_encode($this->pic_list);
+        if($this->validate()){
+            $model = new Cashback();
+            $model->userid = $this->userid;
+            $model->pic_list = $this->pic_list;
+            $model->pic_optometry_list = $this->pic_optometry_list;
+            $model->create_at = date('Y-m-d H:i:s');
+            $model->modify_at = $model->create_at;
+            $model->status = 1;
+            if($model->save()){
+                return true;
+            }
+        }
+        return false;
+
+
+
     }
 
     /**

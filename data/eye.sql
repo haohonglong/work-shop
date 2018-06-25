@@ -266,7 +266,7 @@ DROP TABLE IF EXISTS `ushop_cashback`;
 CREATE TABLE `ushop_cashback` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL COMMENT '哪个人申请返现',
-  `status` TINYINT(1) DEFAULT 0 COMMENT '1:审核通过，2：审核中，3：审核失败,4:已经返现',
+  `status` TINYINT(1) DEFAULT 1 COMMENT '1：审核中，2：审核失败,3:审核通过，4:已经返现',
   `pic_list` text NOT NULL COMMENT '所有场景图片,json 格式',
   `pic_optometry_list` text NOT NULL COMMENT '验光单图片',
   `remark` text COMMENT '备注',

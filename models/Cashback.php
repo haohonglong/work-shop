@@ -7,9 +7,9 @@ use Yii;
 /**
  * This is the model class for table "{{%cashback}}".
  *
- * @property int $id
+ * @property string $id
  * @property int $userid 哪个人申请返现
- * @property int $status 1:审核通过，2：审核中，3：审核失败,4:已经返现
+ * @property int $status 1：审核中，2：审核失败,3:审核通过，4:已经返现
  * @property string $pic_list 所有场景图片,json 格式
  * @property string $pic_optometry_list 验光单图片
  * @property string $remark 备注
