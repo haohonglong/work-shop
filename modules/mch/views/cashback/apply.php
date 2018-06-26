@@ -7,6 +7,7 @@
  */
 $urlManager = Yii::$app->urlManager;
 $this->title = '申请政府返现';
+$this->params['active_nav_group'] = 1;
 ?>
 
 <div class="panel mb-3" id="app">
@@ -70,7 +71,7 @@ $this->title = '申请政府返现';
                                 <div class="input-group">
                                     <input class="form-control file-input"
                                            v-bind:index="'pic_optometry'"
-                                           v-bind:name="'pic_optometry_list'"
+                                           v-bind:name="'pic_optometry'"
                                            v-model="pic_optometry.pic_url">
                                     <span class="input-group-btn">
                                         <a class="btn btn-secondary upload-file" href="javascript:"

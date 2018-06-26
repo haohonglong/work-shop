@@ -21,6 +21,10 @@ class CashbackController extends Controller
 
     public function actionIndex($status=0)
     {
+        $arr = [0,1,2,3,4];
+        if(!in_array($status,$arr)){
+            return $this->redirect(['index','status'=>0]);
+        }
         $query = (new Query())
             ->select('u.id as uid,u.nickname')
             ->addSelect('c.id,c.create_at,c.status')
@@ -33,13 +37,17 @@ class CashbackController extends Controller
             $query->andWhere(['c.status'=>$status]);
         }
         $data = $query->all();
-        if(0 == $status){
-            foreach ($data as $k => $v){
-                if(isset($v['id'])){
+        if(0 == $status) {
+            foreach ($data as $k => $v) {
+                if (isset($v['id'])) {
                     unset($data[$k]);
                 }
+
             }
         }
+
+
+        $data = json_encode(array_values($data));
 
         return $this->render('index', [
             'list' => $data,
@@ -47,19 +55,38 @@ class CashbackController extends Controller
         ]);
     }
 
+    public function actionGetPicsById($id)
+    {
+        $data = (new Query())
+            ->select('pics')
+            ->from(Cashback::tableName())
+            ->where(['id'=>$id])
+            ->one();
+
+        return Response::json(1,'successfully',json_decode($data['pics'],true));
+
+    }
+
     public function actionApply($userid=null)
     {
         $request = yii::$app->request;
-        if(User::isVip($userid)){
+        $user = Cashback::find()->where(['userid'=>$userid])->limit(1)->one();
+        if(!$user && User::isVip($userid)){//用户没申请且是vip
             if($request->isPost){
                 $model = new CashbackForm();
                 $model->attributes = $request->post();
                 $model->userid = $userid;
 
                 if($model->apply()){
-                    return Response::json(1,'1');
+                    return $this->renderJson([
+                        'code' => 0,
+                        'msg' => '保存成功',
+                    ]);
                 }
-                return Response::json(0,'1');
+                return $this->renderJson([
+                    'code' => -1,
+                    'msg' => '保存失败',
+                ]);
 
             }else{
                 return $this->render('apply', [
@@ -68,8 +95,17 @@ class CashbackController extends Controller
             }
 
 
+        }else{
+            return $this->redirect('index');
         }
 
+    }
+
+    public function actionCheck($id,$status)
+    {
+        if(CashbackForm::check($id,$status)){
+            return $this->redirect('index');
+        }
     }
 
 

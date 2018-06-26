@@ -1,5 +1,61 @@
 define({ "api": [
   {
+    "type": "post",
+    "url": "/cashback/apply",
+    "title": "申请政府返现",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "userid",
+            "description": "<p>用户ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Array",
+            "optional": false,
+            "field": "pic_list",
+            "description": "<p>上传场景的图片</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "pic_optometry",
+            "description": "<p>上传验光单的图片</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "remark",
+            "description": "<p>备注</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "pic_list:",
+          "content": " [\n   {\"pic_url\":\"http:\\/\\/youtong.shop\\/uploads\\/image\\/d4\\/d4ed9472d893effc07dce8b394bad1b3.jpg\"},\n   {\"pic_url\":\"http:\\/\\/youtong.shop\\/uploads\\/image\\/36\\/36b6c241664678142fbd77f7f49b7ded.jpg\"}\n    ...\n]",
+          "type": "Array"
+        }
+      ]
+    },
+    "group": "Cashback",
+    "version": "0.0.0",
+    "filename": "modules/api/controllers/CashbackController.php",
+    "groupTitle": "Cashback",
+    "name": "PostCashbackApply",
+    "sampleRequest": [
+      {
+        "url": "http://youtong.shop/api/cashback/apply"
+      }
+    ]
+  },
+  {
     "type": "get",
     "url": "/eye/eye-card/index",
     "title": "获取打卡信息",
@@ -18,8 +74,8 @@ define({ "api": [
     },
     "version": "0.0.0",
     "filename": "modules/api/controllers/eye/EyeCardController.php",
-    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeCardController_php",
-    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeCardController_php",
+    "group": "D__phpStudy_www_youtong_modules_api_controllers_eye_EyeCardController_php",
+    "groupTitle": "D__phpStudy_www_youtong_modules_api_controllers_eye_EyeCardController_php",
     "name": "GetEyeEyeCardIndex",
     "sampleRequest": [
       {
@@ -53,8 +109,8 @@ define({ "api": [
     },
     "version": "0.0.0",
     "filename": "modules/api/controllers/eye/EyeCardController.php",
-    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeCardController_php",
-    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeCardController_php",
+    "group": "D__phpStudy_www_youtong_modules_api_controllers_eye_EyeCardController_php",
+    "groupTitle": "D__phpStudy_www_youtong_modules_api_controllers_eye_EyeCardController_php",
     "name": "PostEyeEyeCardRecord",
     "sampleRequest": [
       {
@@ -68,8 +124,8 @@ define({ "api": [
     "title": "获取世界卫生组织全部数据",
     "version": "0.0.0",
     "filename": "modules/api/controllers/eye/EyeInfoController.php",
-    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeInfoController_php",
-    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeInfoController_php",
+    "group": "D__phpStudy_www_youtong_modules_api_controllers_eye_EyeInfoController_php",
+    "groupTitle": "D__phpStudy_www_youtong_modules_api_controllers_eye_EyeInfoController_php",
     "name": "GetEyeEyeInfoWorldCount",
     "sampleRequest": [
       {
@@ -109,8 +165,8 @@ define({ "api": [
     },
     "version": "0.0.0",
     "filename": "modules/api/controllers/eye/EyeOptometryListController.php",
-    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
-    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
+    "group": "D__phpStudy_www_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
+    "groupTitle": "D__phpStudy_www_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
     "name": "GetEyeEyeOptometryListIndex",
     "sampleRequest": [
       {
@@ -269,8 +325,8 @@ define({ "api": [
     },
     "version": "0.0.0",
     "filename": "modules/api/controllers/eye/EyeOptometryListController.php",
-    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
-    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
+    "group": "D__phpStudy_www_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
+    "groupTitle": "D__phpStudy_www_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
     "name": "PostEyeEyeOptometryListAdd",
     "sampleRequest": [
       {
@@ -443,8 +499,8 @@ define({ "api": [
     },
     "version": "0.0.0",
     "filename": "modules/api/controllers/eye/EyeOptometryListController.php",
-    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
-    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
+    "group": "D__phpStudy_www_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
+    "groupTitle": "D__phpStudy_www_youtong_modules_api_controllers_eye_EyeOptometryListController_php",
     "name": "PostEyeEyeOptometryListEdit",
     "sampleRequest": [
       {
@@ -471,8 +527,8 @@ define({ "api": [
     },
     "version": "0.0.0",
     "filename": "modules/api/controllers/eye/EyeRecordController.php",
-    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeRecordController_php",
-    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeRecordController_php",
+    "group": "D__phpStudy_www_youtong_modules_api_controllers_eye_EyeRecordController_php",
+    "groupTitle": "D__phpStudy_www_youtong_modules_api_controllers_eye_EyeRecordController_php",
     "name": "GetEyeEyeRecordIndex",
     "sampleRequest": [
       {
@@ -534,8 +590,8 @@ define({ "api": [
     },
     "version": "0.0.0",
     "filename": "modules/api/controllers/eye/EyeRecordController.php",
-    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeRecordController_php",
-    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeRecordController_php",
+    "group": "D__phpStudy_www_youtong_modules_api_controllers_eye_EyeRecordController_php",
+    "groupTitle": "D__phpStudy_www_youtong_modules_api_controllers_eye_EyeRecordController_php",
     "name": "PostEyeEyeRecordAdd",
     "sampleRequest": [
       {
@@ -597,8 +653,8 @@ define({ "api": [
     },
     "version": "0.0.0",
     "filename": "modules/api/controllers/eye/EyeRecordController.php",
-    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeRecordController_php",
-    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_EyeRecordController_php",
+    "group": "D__phpStudy_www_youtong_modules_api_controllers_eye_EyeRecordController_php",
+    "groupTitle": "D__phpStudy_www_youtong_modules_api_controllers_eye_EyeRecordController_php",
     "name": "PostEyeEyeRecordEdit",
     "sampleRequest": [
       {
@@ -612,8 +668,8 @@ define({ "api": [
     "title": "显示人员卡",
     "version": "0.0.0",
     "filename": "modules/api/controllers/eye/PersonCardController.php",
-    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_PersonCardController_php",
-    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_PersonCardController_php",
+    "group": "D__phpStudy_www_youtong_modules_api_controllers_eye_PersonCardController_php",
+    "groupTitle": "D__phpStudy_www_youtong_modules_api_controllers_eye_PersonCardController_php",
     "name": "PostEyePersonCardIndex",
     "sampleRequest": [
       {
@@ -640,8 +696,8 @@ define({ "api": [
     },
     "version": "0.0.0",
     "filename": "modules/api/controllers/eye/UserController.php",
-    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_UserController_php",
-    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_UserController_php",
+    "group": "D__phpStudy_www_youtong_modules_api_controllers_eye_UserController_php",
+    "groupTitle": "D__phpStudy_www_youtong_modules_api_controllers_eye_UserController_php",
     "name": "GetEyeUserIndex",
     "sampleRequest": [
       {
@@ -668,8 +724,8 @@ define({ "api": [
     },
     "version": "0.0.0",
     "filename": "modules/api/controllers/eye/UserController.php",
-    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_UserController_php",
-    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_UserController_php",
+    "group": "D__phpStudy_www_youtong_modules_api_controllers_eye_UserController_php",
+    "groupTitle": "D__phpStudy_www_youtong_modules_api_controllers_eye_UserController_php",
     "name": "GetEyeUserList",
     "sampleRequest": [
       {
@@ -731,8 +787,8 @@ define({ "api": [
     },
     "version": "0.0.0",
     "filename": "modules/api/controllers/eye/UserController.php",
-    "group": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_UserController_php",
-    "groupTitle": "D__phpstudy_WWW_youtong_modules_api_controllers_eye_UserController_php",
+    "group": "D__phpStudy_www_youtong_modules_api_controllers_eye_UserController_php",
+    "groupTitle": "D__phpStudy_www_youtong_modules_api_controllers_eye_UserController_php",
     "name": "PostEyeUserModify",
     "sampleRequest": [
       {
