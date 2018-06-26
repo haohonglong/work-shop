@@ -7,6 +7,8 @@
 $cat = [
     1 => '关于我们',
     2 => '服务中心',
+    3 => '眼睛建议',
+    4 => '优瞳文章',
 ];
 $urlManager = Yii::$app->urlManager;
 $this->title = $cat[$cat_id];
@@ -21,6 +23,18 @@ $this->params['page_navs'] = [
         'active' => $cat_id == 2,
         'url' => $urlManager->createUrl(['mch/article/index', 'cat_id' => 2,]),
     ],
+    [
+        'name' => '眼睛建议',
+        'active' => $cat_id == 3,
+        'url' => $urlManager->createUrl(['mch/article/index', 'cat_id' => 3,]),
+    ],
+    [
+        'name' => '优瞳文章',
+        'active' => $cat_id == 4,
+        'url' => $urlManager->createUrl(['mch/article/index', 'cat_id' => 4,]),
+    ],
+
+
 ];
 ?>
 
@@ -31,7 +45,7 @@ $this->params['page_navs'] = [
             <ul class="nav nav-right">
                 <li class="nav-item">
                     <a class="nav-link"
-                       href="<?= $urlManager->createAbsoluteUrl(['mch/article/edit', 'cat_id' => 2]) ?>">添加文章</a>
+                       href="<?= $urlManager->createAbsoluteUrl(['mch/article/edit', 'cat_id' => $cat_id]) ?>">添加文章</a>
                 </li>
             </ul>
         <?php endif; ?>
@@ -85,7 +99,9 @@ $this->params['page_navs'] = [
                     url: href,
                     dataType: "json",
                     success: function (res) {
-                        location.reload();
+                        if(0 == res.code){
+                            location.reload();
+                        }
                     }
                 });
             }

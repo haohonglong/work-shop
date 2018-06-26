@@ -9,11 +9,14 @@ namespace app\modules\mch\controllers;
 
 use app\models\Article;
 use app\modules\mch\models\Model;
+use yii\helpers\Html;
 
 class ArticleController extends Controller
 {
+
     public function actionIndex($cat_id = 1)
     {
+        $this->store->id = $cat_id;
         $list = Article::find()->where([
             'store_id' => $this->store->id,
             'article_cat_id' => $cat_id,
@@ -33,6 +36,7 @@ class ArticleController extends Controller
 
     public function actionEdit($cat_id, $id = null)
     {
+        $this->store->id = $cat_id;
         $model = Article::findOne([
             'store_id' => $this->store->id,
             'id' => $id,
@@ -45,6 +49,7 @@ class ArticleController extends Controller
         }
         if (\Yii::$app->request->isPost) {
             $model->attributes = \Yii::$app->request->post();
+            $model->content = Html::encode($model->content);
             $model->article_cat_id = $cat_id;
             $model->store_id = $this->store->id;
             if ($model->isNewRecord) {
@@ -69,7 +74,7 @@ class ArticleController extends Controller
     {
         $model = Article::findOne([
             'id' => $id,
-            'store_id' => $this->store->id,
+//            'store_id' => $this->store->id,
         ]);
         if ($model) {
             $model->is_delete = 1;

@@ -19,6 +19,7 @@ use yii\web\IdentityInterface;
  * @property string $wechat_open_id
  * @property string $wechat_union_id
  * @property string $nickname
+ * @property string $gender
  * @property string $avatar_url
  * @property integer $store_id
  * @property integer $is_distributor
@@ -73,6 +74,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'wechat_open_id' => '微信openid',
             'wechat_union_id' => '微信用户union id',
             'nickname' => '昵称',
+            'gender' => '性别',
             'avatar_url' => '头像url',
             'store_id' => '商城id',
             'is_distributor' => '是否是分销商 0--不是 1--是 2--申请中',
@@ -175,5 +177,11 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public static function getCardCount($id){
         return UserCard::find()->where(['is_delete'=>0,'user_id'=>$id])->count();
+    }
+
+    public static function isVip($id)
+    {
+        return static::find()->where(['id'=>$id,'is_delete'=>0])->andWhere(['not','level = -1'])->limit(1)->one();
+
     }
 }

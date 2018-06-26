@@ -7,6 +7,8 @@
 $cat = [
     1 => '关于我们',
     2 => '服务中心',
+    3 => '眼睛建议',
+    4 => '优瞳文章',
 ];
 $cat_id = Yii::$app->request->get('cat_id', 2);
 $urlManager = Yii::$app->urlManager;
@@ -25,6 +27,18 @@ $this->params['page_navs'] = [
         'active' => $cat_id == 2,
         'url' => $urlManager->createUrl(['mch/article/index', 'cat_id' => 2,]),
     ],
+    [
+        'name' => '眼睛建议',
+        'active' => $cat_id == 3,
+        'url' => $urlManager->createUrl(['mch/article/index', 'cat_id' => 3,]),
+    ],
+    [
+        'name' => '优瞳文章',
+        'active' => $cat_id == 4,
+        'url' => $urlManager->createUrl(['mch/article/index', 'cat_id' => 4,]),
+    ],
+
+
 ];
 ?>
 
@@ -40,6 +54,46 @@ $this->params['page_navs'] = [
                     <input class="form-control cat-name" name="title" value="<?= $model->title ?>">
                 </div>
             </div>
+            <?php if(4 == $cat_id):?>
+            <div class="form-group row">
+                <div class="form-group-label col-sm-2 text-right">
+                    <label class="col-form-label required">商品缩略图</label>
+                </div>
+                <div class="col-6">
+                    <div class="upload-group short-row">
+                        <div class="input-group">
+                            <input class="form-control file-input" name="pic_url"
+                                   value="<?= $model->pic_url ?>">
+                            <span class="input-group-btn">
+                                        <a class="btn btn-secondary upload-file" href="javascript:"
+                                           data-toggle="tooltip"
+                                           data-placement="bottom" title="上传文件">
+                                            <span class="iconfont icon-cloudupload"></span>
+                                        </a>
+                                    </span>
+                            <span class="input-group-btn">
+                                        <a class="btn btn-secondary select-file" href="javascript:"
+                                           data-toggle="tooltip"
+                                           data-placement="bottom" title="从文件库选择">
+                                            <span class="iconfont icon-viewmodule"></span>
+                                        </a>
+                                    </span>
+                            <span class="input-group-btn">
+                                        <a class="btn btn-secondary delete-file" href="javascript:"
+                                           data-toggle="tooltip"
+                                           data-placement="bottom" title="删除文件">
+                                            <span class="iconfont icon-close"></span>
+                                        </a>
+                                    </span>
+                        </div>
+                        <div class="upload-preview text-center upload-preview">
+                            <span class="upload-preview-tip">325&times;325</span>
+                            <img class="upload-preview-img" src="<?= $model->pic_url ?>">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php endif;?>
             <div class="form-group row">
                 <div class="form-group-label col-sm-2 text-right">
                     <label class="col-form-label required">排序</label>
@@ -55,7 +109,7 @@ $this->params['page_navs'] = [
                 </div>
                 <div class="col-sm-6">
                         <textarea id="editor" style="width: 100%"
-                                  name="content"><?= $model->content ?></textarea>
+                                  name="content"><?= \yii\helpers\Html::decode($model->content); ?></textarea>
                 </div>
             </div>
             <div class="form-group row">

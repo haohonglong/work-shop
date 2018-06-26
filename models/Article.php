@@ -33,7 +33,7 @@ class Article extends \yii\db\ActiveRecord
     {
         return [
             [['store_id', 'article_cat_id', 'sort', 'addtime', 'is_delete'], 'integer'],
-            [['content'], 'string'],
+            [['content','pic_url'], 'string'],
             [['title'], 'string', 'max' => 255],
         ];
     }

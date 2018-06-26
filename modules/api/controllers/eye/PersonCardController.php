@@ -12,52 +12,28 @@ use yii\db\Query;
 
 class PersonCardController extends BaseController
 {
+    /**
+     * @author lhh
+     * 创建日期：2018-06-19
+     * 修改日期：2018-06-19
+     * 名称：actionIndex
+     * 功能：
+     * 说明：
+     * 注意：
+     * @api {post} /eye/person-card/index 显示人员卡
+     * @return object
+     */
     function actionIndex()
     {
         $data = (new Query())
-            ->select('p.id,p.f_id,p.title,p.tip,p.type,u.id as user_id,u.avatar_url')
-            ->from(['u'=>User::tableName()])
-            ->innerJoin(['p'=>PersonCard::tableName()],'p.user_id = u.id')
+            ->select('*')
+            ->from(['p'=>PersonCard::tableName()])
             ->where(['p.is_del'=>0])->all();
         if($data){
-	        return Response::json(1,'成功',$data);
+	        return Response::json(1,'successfully',$data);
         }
-	    return Response::json(0,'成功',$data);
+	    return Response::json(0,'fail');
     }
 
-    function actionAdd()
-    {
-        $model = new PersonCardForm();
-        $request = yii::$app->request;
-        $model->title = $request->post('title');
-        $model->user_id = $request->post('user_id');
-        $model->f_id = $request->post('f_id');
-        $model->tip = $request->post('tip');
-        $model->type = $request->post('type');
-        if ($model->save()) {
-            return Response::json(1,'成功');
-        }
-	    return Response::json(0,'失败');
-    }
-    function actionEdit()
-    {
-        $model = new PersonCardForm();
-        $request = yii::$app->request;
-        $model->id = $request->post('id');
-        $model->title = $request->post('title');
-        $model->tip = $request->post('tip');
-        if ($model->edit()) {
-            return Response::json(1,'成功');
-        }
-	    return Response::json(0,'失败');
-    }
-    function actionDel()
-    {
-        $request = yii::$app->request;
-        $id = $request->post('id');
-        if(PersonCard::del($id)){
-	        return Response::json(1,'成功');
-        }
-	    return Response::json(0,'失败');
-    }
+
 }

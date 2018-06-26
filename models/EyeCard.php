@@ -9,8 +9,6 @@ use Yii;
  *
  * @property string $id
  * @property string $title
- * @property string $day
- * @property integer $is_del
  */
 class EyeCard extends \yii\db\ActiveRecord
 {
@@ -28,10 +26,8 @@ class EyeCard extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'day'], 'required'],
-            [['is_del','status'], 'integer'],
+            [['title'], 'required'],
             [['title'], 'string', 'max' => 50],
-            [['day'], 'string', 'max' => 3],
         ];
     }
 	
@@ -41,13 +37,16 @@ class EyeCard extends \yii\db\ActiveRecord
 	}
     public static function del($id)
     {
-        $model = self::getById($id);
-        if($model){
-            $model->is_del = 1;
-            if($model->save()){
-                return true;
+        $model = EyeRecordLog::find()->where(['eye_card_id'=>$id])->one();
+        if(!$model){
+            $model = self::getById($id);
+            if($model){
+                if($model->delete()){
+                    return true;
+                }
             }
         }
+
         return false;
     }
 
@@ -59,8 +58,6 @@ class EyeCard extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'title' => '名称',
-            'day' => '天数',
-            'is_del' => 'Is Del',
         ];
     }
 }

@@ -461,6 +461,23 @@ class MchMenu
 
 
             ],
+            [
+                'name' => '政府返现',
+                'route' => 'mch/cashback/index',
+                'icon' => 'icon-pintu-m',
+                'list'=>[
+                    [
+                        'name' => '政府返现',
+                        'route' => 'mch/cashback/index',
+                        'sub' => [
+                            'mch/cashback/index',
+                            'mch/cashback/apply',
+                        ]
+                    ]
+                ]
+
+
+            ],
 	        [
 		        'name' => '眼睛',
 		        'route' => 'mch/eye/eye-card/index',
@@ -514,7 +531,7 @@ class MchMenu
                                 ],
                             ],
                             [
-                                'name' => '眼睛数据列表',
+                                'name' => '验光单',
                                 'route' => 'mch/eye/eye-info/index',
                                 'sub' => [
                                     'mch/eye/eye-info/index',

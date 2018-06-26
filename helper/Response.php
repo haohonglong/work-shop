@@ -12,6 +12,12 @@ namespace app\helper;
 class Response
 {
     public static function json($code,$message,$data=null){
+        if(is_array($code)){
+            $arr = $code;
+            $message = $arr['message'];
+            $data = $arr['data'] ?: null;
+            $code = $arr['code'];
+        }
         return \Yii::createObject([
             'class' => 'yii\web\Response',
             'format' => \yii\web\Response::FORMAT_JSON,
@@ -23,6 +29,12 @@ class Response
         ]);
     }
     public static function xml($code,$message,$data=null){
+        if(is_array($code)){
+            $arr = $code;
+            $message = $arr['message'];
+            $data = $arr['data'] ?: null;
+            $code = $arr['code'];
+        }
         return \Yii::createObject([
             'class' => 'yii\web\Response',
             'format' => \yii\web\Response::FORMAT_XML,

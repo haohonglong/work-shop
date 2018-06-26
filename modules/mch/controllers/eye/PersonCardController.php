@@ -15,7 +15,7 @@ class PersonCardController extends Controller
 {
     public function actionIndex()
     {
-	    $query =PersonCard::find()->select('id,f_id,title,tip,type')->where(['is_del'=>0]);
+	    $query =PersonCard::find()->select('id,title,tip,type')->where(['is_del'=>0]);
 	    $count = $query->count();
 	    $pagination = new Pagination(['totalCount' => $count]);
 	    $data = $query->offset($pagination->offset)
@@ -29,15 +29,7 @@ class PersonCardController extends Controller
 	    return $this->render('index',$var);
     }
 
-    /**
-     * @return array
-     */
-    private function getFamily()
-    {
-        $data = (new Query())->select('id,name')->from(Family::tableName())->all();
-        $data = ArrayHelper::map($data, 'id', 'name');
-        return $data;
-    }
+
 
     public function actionAdd()
     {
@@ -50,7 +42,6 @@ class PersonCardController extends Controller
         }
         $var =[
             'model'=>$model,
-            'family_list'=>$this->getFamily(),
         ];
         return $this->render('add',$var);
 
@@ -64,8 +55,7 @@ class PersonCardController extends Controller
                 return $this->redirect(['index']);
             }
             $var =[
-                'model'=>$model,
-                'family_list'=>$this->getFamily(),
+                'model'=>$model
             ];
             return $this->render('edit',$var);
         }

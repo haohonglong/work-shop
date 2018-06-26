@@ -10,8 +10,6 @@ use Yii;
  * @property int $id
  * @property string $title
  * @property string $tip
- * @property int $f_id
- * @property int $user_id
  * @property int $type 卡的类型：1:家长，2：学生，3：老人
  * @property int $is_del 1:删除
  */
@@ -31,8 +29,8 @@ class PersonCard extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'tip', 'f_id','user_id'], 'required'],
-            [['f_id', 'type', 'is_del','user_id'], 'integer'],
+            [['title', 'tip'], 'required'],
+            [['type'], 'integer'],
             [['title'], 'string', 'max' => 20],
             [['tip'], 'string', 'max' => 128],
         ];
@@ -63,8 +61,6 @@ class PersonCard extends \yii\db\ActiveRecord
             'id' => 'ID',
             'title' => '名称',
             'tip' => '小提示',
-            'f_id' => '家庭id',
-            'user_id' => '用户id',
             'type' => '卡的类型',
             'is_del' => 'Is Del',
         ];

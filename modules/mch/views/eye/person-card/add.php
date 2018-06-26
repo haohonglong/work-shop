@@ -1,7 +1,7 @@
 <?php
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
-$this->title = '添加人员信息';
+$this->title = '添加人员卡包信息';
 ?>
 
 <div class="panel mb-3">
@@ -12,7 +12,6 @@ $this->title = '添加人员信息';
         'options' => ['class' => 'form-horizontal'],
         ]) ?>
         <?= $form->field($model, 'title') ?>
-        <?= $form->field($model, 'f_id')->dropdownList($family_list,['prompt'=>'请选择家庭']) ?>
         <?= $form->field($model, 'type')->dropdownList(yii::$app->params['personCardType'],['prompt'=>'请选择卡类型']) ?>
         <?= $form->field($model, 'tip')->textarea() ?>
         <div class="form-group">
